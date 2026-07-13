@@ -106,6 +106,16 @@ const PROJECTS: Project[] = [
 
 const NOTES = [
   {
+    title: "An agent-first macOS workbench",
+    source: "Open-source setup",
+    date: "2026-07-13",
+    dateLabel: "13 Jul 2026",
+    href: "https://github.com/kevinmamaqi/agent-first-workbench",
+    external: true,
+    summary:
+      "The sanitized macOS setup I use for agent-first development: cmux and Ghostty for visible agent work, terminal-native review and navigation tools, deterministic output for agents, and a safe installer with privacy checks.",
+  },
+  {
     title: "Agent Harness at each::labs",
     source: "Internal presentation",
     date: "2026-07-13",
@@ -118,8 +128,8 @@ const NOTES = [
   {
     title: "We timed our coding agents",
     source: "LinkedIn article",
-    date: "2026-07-13",
-    dateLabel: "13 Jul 2026",
+    date: "2026-06-30",
+    dateLabel: "30 Jun 2026",
     href: "https://www.linkedin.com/pulse/we-timed-our-coding-agents-92-work-happened-before-mamaqi-kapllani-f3icf/",
     external: true,
     summary:
