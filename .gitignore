@@ -1,0 +1,18 @@
+node_modules
+dist
+.DS_Store
+bun.lockb
+bun.lock
+.env
+.env.*
+*.log
+.cache
+.wrangler
+.code-review-graph
+
+# Private working docs — kept local, not published
+kevinmamaqi.pen
+AGENTS.md
+STYLEGUIDE.md
+LEGACY_WEBSITES.md
+README.content-workspace.md

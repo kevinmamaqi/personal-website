@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f7f3ec" />
+  <meta name="author" content="Kevin Mamaqi" />
+  <meta name="description" content="An internal engineering presentation about agent-harness ergonomics, fast tools, specification-driven work, independent verification, and measurement at each::labs." />
+  <link rel="canonical" href="https://kevinmamaqi.com/notes/agent-harness-at-eachlabs/" />
+  <link rel="home" href="https://kevinmamaqi.com/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Kevin Mamaqi" />
+  <meta property="og:title" content="Agent Harness at each::labs" />
+  <meta property="og:description" content="How ergonomics, fast tools, specifications, sequential implementation, independent verification, and measurement improve daily agent-assisted engineering work." />
+  <meta property="og:url" content="https://kevinmamaqi.com/notes/agent-harness-at-eachlabs/" />
+  <meta property="article:published_time" content="2026-07-13" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Agent Harness at each::labs" />
+  <meta name="twitter:description" content="A practical internal presentation about improving daily agent-assisted engineering work." />
+  <title>Agent Harness at each::labs</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PresentationDigitalDocument",
+      "name": "Agent Harness at each::labs",
+      "description": "An internal engineering presentation about agent-harness ergonomics, fast tools, specification-driven work, independent verification, and measurement.",
+      "author": { "@type": "Person", "name": "Kevin Mamaqi", "url": "https://kevinmamaqi.com/" },
+      "datePublished": "2026-07-13",
+      "inLanguage": "en",
+      "url": "https://kevinmamaqi.com/notes/agent-harness-at-eachlabs/"
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&amp;family=Inter:wght@400;550;650&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/deck.css" />
+</head>
+<body>
+  <a class="skip-link" href="#presentation">Skip to presentation</a>
+  <main class="deck" id="presentation" tabindex="-1">
+    <section class="slide active" data-note="Introduce the topic directly. This presentation explains how we currently work with coding agents at each::labs, why the surrounding tools and practices matter, and what our measurements tell us to improve next.">
+      <header class="topline"><span>each::labs · Internal engineering</span><span>14 July 2026</span></header>
+      <div class="content">
+        <p class="kicker">Internal presentation</p>
+        <h1>Agent Harness at each::labs</h1>
+        <div class="motif" aria-hidden="true"><span></span></div>
+        <p class="lede">How we use tools, specifications, sequential implementation, verification and measurement to improve our daily engineering work.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="State the intention plainly. This is an internal working session about how we improve our daily engineering system. The CLI tools are examples, not the destination. The destination is a team habit of adopting, measuring and refining better ways to work.">
+      <header class="topline"><span>01 · Intention</span><span>Why I am sharing this</span></header>
+      <div class="content top">
+        <p class="kicker">Purpose</p>
+        <h2>Share the tools and practices we use, explain why they matter, and use data to decide what to improve.</h2>
+        <div class="prose">
+          <p>There are many CLI tools. A list of tools is not enough. We need to ask: <strong>does this tool improve the speed, quality or correctness of our daily work?</strong></p>
+          <p>The goal is to notice recurring problems, try a change, measure the result, and share the changes that work with the rest of the team.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card warm"><h3>Share</h3><p>Make useful personal workflows visible to the whole team.</p></article>
+          <article class="card"><h3>Measure</h3><p>Bring data so adoption is based on outcomes, not enthusiasm.</p></article>
+          <article class="card accent"><h3>Reuse</h3><p>Turn one person’s improvement into a shared team practice.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="We are already doing agent-harness work every day: specs, tools, verification, memory, worktrees, review, and measurement. Naming it lets us improve it as one system instead of as disconnected tricks.">
+      <header class="topline"><span>02 · Why now</span><span>Improve the full workflow</span></header>
+      <div class="content top">
+        <p class="kicker">Agents are now part of daily work</p>
+        <h2>The workflow around an agent affects every task the agent performs.</h2>
+        <div class="prose">
+          <p>Agents now help with reading, implementation, testing, review, documentation and repository operations. A slow tool, unclear instruction or missing check can affect many tasks.</p>
+          <p>A faster search command, a clearer specification or a better verification step can also improve many future tasks. This is why the surrounding workflow deserves regular attention.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card"><h3>Tools</h3><p>Reduce friction in search, review, navigation, context and handoff.</p></article>
+          <article class="card"><h3>Practices</h3><p>Give the work a stable loop: spec → thin slice → independent proof.</p></article>
+          <article class="card"><h3>Culture</h3><p>Share useful changes and use data to decide whether they should become team defaults.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="A car seat is easy to judge for ten minutes and hard to design for eight hours. You need pressure maps, posture, vibration, temperature, adjustability, recovery and long-run observation. Agent ergonomics has the same shape.">
+      <header class="topline"><span>03 · The chair example</span><span>Short test compared with long use</span></header>
+      <div class="content">
+        <p class="kicker">Ergonomics changes over time</p>
+        <div class="compare">
+          <div>
+            <p class="small">A chair at minute 10</p>
+            <p class="display">“Feels comfortable.”</p>
+            <p>Softness and first impression dominate. The body has not accumulated pressure, fatigue or compensation. Almost any defect can hide.</p>
+          </div>
+          <div>
+            <p class="small">A chair after eight hours</p>
+            <p class="display">Pressure, posture and fatigue</p>
+            <p>Small problems build up over time. A tiny angle creates pain; vibration and heat matter; one fixed posture stops working. A good seat must support adjustment during the journey.</p>
+          </div>
+        </div>
+        <p class="big-line">A seat that feels comfortable for ten minutes may become uncomfortable after several hours. <em>Tools have the same problem.</em></p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Long-term comfort is hard to measure because the effect is delayed and personal. People adapt, switch posture, take breaks and forget the cause. A lab test can isolate pressure, but a real journey combines posture, vibration, temperature, attention and recovery. This is why anecdotes are insufficient but measurement is still essential.">
+      <header class="topline"><span>04 · Why measurement is difficult</span><span>Long-term effects have many causes</span></header>
+      <div class="content top">
+        <p class="kicker">A short test is not enough</p>
+        <h2>A short test cannot tell us how a seat—or a tool—will feel after several hours.</h2>
+        <div class="grid-3">
+          <article class="card warm"><h3>Delayed effect</h3><p>Pressure and fatigue accumulate slowly. The defect appears hours after the first contact.</p></article>
+          <article class="card"><h3>Adaptation</h3><p>People compensate: change posture, take breaks, create workarounds and normalize discomfort.</p></article>
+          <article class="card"><h3>Many variables</h3><p>Seat shape, body, vibration, temperature, road, attention and duration interact.</p></article>
+          <article class="card"><h3>Personal experience</h3><p>Different people experience comfort differently. We need repeated feedback and observable measures.</p></article>
+          <article class="card"><h3>Missing feedback</h3><p>People who stop using a tool may not report the long-term problem that made them stop.</p></article>
+          <article class="card accent"><h3>Short evaluation</h3><p>A demonstration shows initial capability. Daily use also requires predictability, recovery and control.</p></article>
+        </div>
+        <p class="claim"><strong>We should use more than one type of evidence.</strong> We can combine team feedback with observable measures such as interruptions, recovery time, error rate, rework and continued use.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Map the analogy directly to engineering. The coding equivalent of pressure is repeated friction. The equivalent of adjustability is composable tools and visible controls. The equivalent of an eight-hour driving study is observing real multi-hour work, not a benchmark prompt.">
+      <header class="topline"><span>05 · How this applies to coding</span><span>Repeated friction adds up</span></header>
+      <div class="content top">
+        <p class="kicker">Coding sessions are long</p>
+        <h2>During a long coding session, small delays and unclear states are repeated many times.</h2>
+        <div class="grid-2">
+          <article class="card warm"><h3>Physical pressure → interaction friction</h3><p>A slow search, noisy test log or awkward handoff looks small once. Repeated fifty times, it changes attention and behavior.</p></article>
+          <article class="card"><h3>Limited tool → workaround</h3><p>When a tool supports only one path, we change our working method to fit the tool. This adds steps and makes the process harder to understand.</p></article>
+          <article class="card"><h3>Adjustment → control</h3><p>Good tools provide small, reversible controls such as scope, filters, worktrees, checks, permissions and stop conditions.</p></article>
+          <article class="card accent"><h3>Recovery → resumption cost</h3><p>After an interruption or failed slice, can another person or fresh agent understand state and continue safely?</p></article>
+        </div>
+        <div class="prose">
+          <p>A tool may look impressive during a short demonstration. Several hours of real work show its delays, context loss, hidden state, supervision cost and reliability.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Ergonomics is not a prettier terminal. It is reducing the mental and operational forces that accumulate: waiting, context loss, invisible state, unclear ownership, and costly recovery.">
+      <header class="topline"><span>06 · Baseline</span><span>Design for sustained control</span></header>
+      <div class="content top">
+        <p class="kicker">Our ergonomic baseline</p>
+        <h2>A good setup makes it easy to see the current state, guide the work, verify the result and recover from problems.</h2>
+        <div class="grid-3">
+          <article class="card warm"><h3>Fast feedback</h3><p>Search, tests and diffs return before attention drifts.</p></article>
+          <article class="card"><h3>Visible state</h3><p>Branch, task, spec, checks and next action are inspectable.</p></article>
+          <article class="card"><h3>Small controls</h3><p>Thin slices and narrow permissions limit the cost of a mistake.</p></article>
+          <article class="card"><h3>Easy to continue</h3><p>Memory and worklogs let a new session continue without searching for the same information again.</p></article>
+          <article class="card"><h3>Consistent commands</h3><p>People can use shortcuts while agents use predictable commands that produce the same result.</p></article>
+          <article class="card accent"><h3>Independent proof</h3><p>The verifier sees the diff and evidence, not the implementer’s confidence.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Present this as our current setup, not as a list of recommended products. cmux keeps concurrent work visible. Human shortcuts make common actions quick. Agents use predictable commands underneath. Specifications and worklogs preserve decisions.">
+      <header class="topline"><span>07 · Current setup</span><span>Tools used in our daily workflow</span></header>
+      <div class="content top">
+        <p class="kicker">Tools for people and agents</p>
+        <h2>Tools should make work easier to follow for people and easier to execute consistently for agents.</h2>
+        <div class="grid-3">
+          <article class="card"><h3><a class="tool-link" href="https://cmux.com/" target="_blank" rel="noreferrer">cmux</a> + worktrees</h3><p>See parallel sessions; isolate writes; supervise without interrupting.</p></article>
+          <article class="card"><h3><code>f</code> · <code>s</code> · <code>changed</code></h3><p>Fast human navigation and review, backed by <code>fd</code>, <code>rg</code> and plain Git.</p></article>
+          <article class="card"><h3><a class="tool-link" href="https://github.com/rtk-ai/rtk" target="_blank" rel="noreferrer">RTK</a></h3><p>Compress noisy command output before it consumes model context.</p></article>
+          <article class="card"><h3><a class="tool-link" href="https://github.com/tirth8205/code-review-graph" target="_blank" rel="noreferrer">code-review-graph</a></h3><p>Structural context, impact radius, affected flows and test relationships.</p></article>
+          <article class="card"><h3><a class="tool-link" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noreferrer">claude-mem</a></h3><p>Cross-session observations and searchable project history.</p></article>
+          <article class="card"><h3>Specs + rollups</h3><p>Definition of done, verification plan, work ledger and measurable friction.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Define the tools in plain language and say how we actually use them. The point is not that everyone must install every tool. Each tool addresses a different daily problem: supervision, terminal noise, code navigation or memory.">
+      <header class="topline"><span>08 · The tools</span><span>What each one changes</span></header>
+      <div class="content top">
+        <p class="kicker">Four tools for four daily problems</p>
+        <h2>A useful tool should solve a specific problem in our workflow.</h2>
+        <div class="grid-2">
+          <article class="card warm">
+            <h3><a class="tool-link" href="https://cmux.com/" target="_blank" rel="noreferrer">cmux</a></h3>
+            <p class="definition">A programmable macOS terminal built for multiple concurrent sessions, split panes, notifications and an embedded browser.</p>
+            <p class="use"><strong>For us:</strong> supervision becomes visible. We can see which agent needs attention, inspect logs, open artifacts and keep independent tasks in separate workspaces.</p>
+          </article>
+          <article class="card">
+            <h3><a class="tool-link" href="https://github.com/rtk-ai/rtk" target="_blank" rel="noreferrer">RTK · Rust Token Killer</a></h3>
+            <p class="definition">A CLI proxy that runs normal development commands and compresses their output before it enters an agent’s context.</p>
+            <p class="use"><strong>For us:</strong> tests and diffs stay readable while repetitive success output disappears. The same commands cost less context and are easier to supervise.</p>
+          </article>
+          <article class="card accent">
+            <h3><a class="tool-link" href="https://github.com/tirth8205/code-review-graph" target="_blank" rel="noreferrer">code-review-graph</a></h3>
+            <p class="definition">A local-first Tree-sitter knowledge graph that maps files, symbols, calls and tests, then exposes focused context and impact analysis through CLI/MCP.</p>
+            <p class="use"><strong>For us:</strong> an agent can ask which flows or tests a change may affect instead of repeatedly reading broad parts of a repository.</p>
+          </article>
+          <article class="card">
+            <h3><a class="tool-link" href="https://github.com/thedotmack/claude-mem" target="_blank" rel="noreferrer">claude-mem</a></h3>
+            <p class="definition">A local persistent-memory system that captures session observations, compresses them and makes relevant history searchable later.</p>
+            <p class="use"><strong>For us:</strong> decisions and discoveries can survive between sessions. A new session can start from previous evidence instead of repeating the same search.</p>
+          </article>
+        </div>
+        <p class="source">Links open the official project pages. These tools are examples of the culture: find friction, adopt deliberately, instrument where possible, and keep only what improves real work.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="This is the cleanest ergonomic metric we have. RTK has filtered 52,073 commands and removed 222 million output tokens. The important interpretation is not cheaper tokens alone: less noise means less context pollution and less waiting for both human and agent.">
+      <header class="topline"><span>09 · Speed</span><span>Why response time matters</span></header>
+      <div class="content top">
+        <p class="kicker">RTK global usage</p>
+        <h2>Fast feedback helps us check smaller changes more often.</h2>
+        <div class="prose">
+          <p>When a search, test or diff is slow, we are more likely to switch tasks or group several changes before checking them. Faster feedback helps us stay focused and verify each change sooner.</p>
+        </div>
+        <div class="metric-grid">
+          <div class="metric"><strong>52,073</strong><span>commands filtered</span></div>
+          <div class="metric"><strong>222.3M</strong><span>output tokens removed</span></div>
+          <div class="metric"><strong>64.5%</strong><span>overall token reduction</span></div>
+          <div class="metric"><strong>4.7s</strong><span>average command runtime</span></div>
+        </div>
+        <div class="verse">
+          <p>Slow feedback causes more context switching, larger unverified changes and less frequent supervision.</p>
+        </div>
+        <p class="source">Measured with <code>rtk gain</code> on 2026-07-13. “Tokens removed” means filtered terminal output, not model reasoning saved one-for-one.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="These are scale measures, not outcome measures. They show that context infrastructure is real and substantial. The next step is to connect usage to review time, first-pass acceptance and defects. Also note the graph registry still carries pre-move paths—ergonomic systems need maintenance too.">
+      <header class="topline"><span>10 · Context</span><span>Make rediscovery cheaper</span></header>
+      <div class="content top">
+        <p class="kicker">Local context infrastructure</p>
+        <h2>We use different tools to reduce terminal noise, select relevant code and remember previous work.</h2>
+        <div class="prose">
+          <p>RTK removes unnecessary command output. code-review-graph helps an agent select relevant files and relationships. claude-mem keeps useful observations from earlier sessions. Each tool addresses a different context problem.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card accent">
+            <h3>code-review-graph · 4 repositories</h3>
+            <div class="metric-grid">
+              <div class="metric"><strong>2,110</strong><span>files</span></div>
+              <div class="metric"><strong>19,831</strong><span>nodes</span></div>
+              <div class="metric"><strong>219,445</strong><span>edges</span></div>
+              <div class="metric"><strong>59,732</strong><span>test relationships</span></div>
+            </div>
+          </article>
+          <article class="card warm">
+            <h3>claude-mem · local history</h3>
+            <div class="metric-grid">
+              <div class="metric"><strong>39,574</strong><span>observations</span></div>
+              <div class="metric"><strong>1,020</strong><span>sessions</span></div>
+              <div class="metric"><strong>55</strong><span>projects</span></div>
+              <div class="metric"><strong>4,943</strong><span>summaries</span></div>
+            </div>
+          </article>
+        </div>
+        <p class="source">Local snapshots measured 2026-07-13. Counts show available context, not causal productivity gains. That link still needs an experiment.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="This is the core each-claude operating contract. Keep the roles distinct because they optimize for different things. Acceptance criteria plus verification plan are written before code—the Validation Contract.">
+      <header class="topline"><span>11 · The harness</span><span>each-claude operating contract</span></header>
+      <div class="content top">
+        <p class="kicker">My standard workflow</p>
+        <h2>Specification → implementation → verification</h2>
+        <div class="prose">
+          <p>The harness is the collection of instructions, tools, state, permissions, checkpoints and evidence that turns a capable model into a repeatable engineering process.</p>
+          <p>In each-claude, acceptance criteria and the verification plan are written before implementation. Together they form a <strong>Validation Contract</strong>: the definition of what the code must prove.</p>
+        </div>
+        <figure class="workflow-figure">
+          <svg viewBox="0 0 1080 154" role="img" aria-label="Specification flows to execution, execution flows to verification, and verification evidence feeds the next specification.">
+            <defs>
+              <marker id="workflow-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8b857a" /></marker>
+            </defs>
+            <g font-family="Inter, system-ui, sans-serif">
+              <g class="workflow-node" id="workflow-node-0">
+                <rect x="16" y="14" width="292" height="62" fill="#f7f3ec" stroke="#23395b" stroke-width="1.4" />
+                <text x="36" y="39" font-size="11" font-weight="700" fill="#23395b" letter-spacing="1.5">SPEC</text>
+                <text x="36" y="62" font-size="15" fill="#171717">Define what the code must prove</text>
+              </g>
+              <g class="workflow-node" id="workflow-node-1">
+                <rect x="394" y="14" width="292" height="62" fill="#f7f3ec" stroke="#8f5b3e" stroke-width="1.4" />
+                <text x="414" y="39" font-size="11" font-weight="700" fill="#8f5b3e" letter-spacing="1.5">EXECUTE</text>
+                <text x="414" y="62" font-size="15" fill="#171717">Build one thin vertical slice</text>
+              </g>
+              <g class="workflow-node" id="workflow-node-2">
+                <rect x="772" y="14" width="292" height="62" fill="#f7f3ec" stroke="#171717" stroke-width="1.4" />
+                <text x="792" y="39" font-size="11" font-weight="700" fill="#171717" letter-spacing="1.5">VERIFY</text>
+                <text x="792" y="62" font-size="15" fill="#171717">Check the contract and evidence</text>
+              </g>
+            </g>
+            <g fill="none" stroke="#8b857a" stroke-width="1.5" marker-end="url(#workflow-arrow)">
+              <path id="workflow-path-0" stroke-dasharray="5 6" d="M314 45 H 386" />
+              <path id="workflow-path-1" stroke-dasharray="5 6" d="M692 45 H 764" />
+              <path id="workflow-path-2" stroke-dasharray="5 6" d="M918 82 v 28 a8 8 0 0 1 -8 8 H 170 a8 8 0 0 1 -8 -8 V 84" />
+            </g>
+            <g font-family="Inter, system-ui, sans-serif" font-size="11" fill="#5f5b54" stroke="#f7f3ec" stroke-width="4" paint-order="stroke" stroke-linejoin="round">
+              <text class="workflow-label" id="workflow-label-0" x="350" y="35" text-anchor="middle">approved contract</text>
+              <text class="workflow-label" id="workflow-label-1" x="728" y="35" text-anchor="middle">change + evidence</text>
+              <text class="workflow-label" id="workflow-label-2" x="540" y="140" text-anchor="middle">findings improve the next specification</text>
+            </g>
+            <circle id="workflow-trail" r="3" fill="#23395b" opacity="0" />
+            <circle id="workflow-token" r="5.5" fill="#23395b" stroke="#f7f3ec" stroke-width="1.4" visibility="hidden" />
+          </svg>
+          <figcaption class="workflow-details">
+            <p><strong>Spec</strong>Scope, constraints, non-goals, acceptance criteria and verification plan.</p>
+            <p><strong>Execute</strong>One thin vertical slice. Minimal diff. Evidence recorded at the boundary.</p>
+            <p><strong>Verify</strong>Fresh context reads the spec, diff and checks. PASS, FAIL or BLOCKED.</p>
+          </figcaption>
+        </figure>
+        <p class="lede">Each role produces evidence for the next role. An implementation is not complete until it has been verified against the specification.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Why serial implementation? Because slices are state-sensitive. Parallel writers multiply merge and assumption risk. We parallelize reading and independent review, but implementation advances only after verified evidence.">
+      <header class="topline"><span>12 · Sequential work</span><span>Optimize verified throughput</span></header>
+      <div class="content top">
+        <p class="kicker">Published migration results</p>
+        <h2>Implementation is sequential. Read-only research and independent review can run in parallel.</h2>
+        <div class="prose">
+          <p>Sequential work is a correctness control, not a rejection of concurrency. Read-only exploration, documentation lookup and independent reviews can run in parallel. Shared implementation state advances only after the current slice is stable.</p>
+        </div>
+        <div class="metric-grid">
+          <div class="metric"><strong>32</strong><span>sequential implementation slices</span></div>
+          <div class="metric"><strong>0</strong><span>parallel implementation writers</span></div>
+          <div class="metric"><strong>25 / 1 / 0</strong><span>verifier PASS / FAIL / BLOCKED decisions</span></div>
+          <div class="metric"><strong>10</strong><span>human approval gates resolved</span></div>
+        </div>
+        <div class="verse">
+          <p>We count an implementation slice as complete only after its verification step passes.</p>
+        </div>
+        <p class="source">From “We Timed Our Coding Agents”: 34/34 production workflow definitions also passed definition-level parse, validation and planning. This was not yet legacy output parity.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Tell this concrete story. The coordinator passed typecheck, lint, build and boot. The independent verifier still failed it: run-state was only in memory, so a callback hitting another instance could produce a false 404. The fix was durable state.">
+      <header class="topline"><span>13 · Why verification matters</span><span>Automated checks did not cover the full behavior</span></header>
+      <div class="content top">
+        <p class="kicker">A real example from the migration</p>
+        <h2>All automated checks passed, but the design still failed an important production scenario.</h2>
+        <div class="loop">
+          <div class="node"><strong>Instance A</strong><span>Starts the async run and keeps state in memory.</span></div>
+          <div class="decision">→</div>
+          <div class="node"><strong>Provider callback</strong><span>Returns later, potentially after a restart.</span></div>
+          <div class="decision">→</div>
+          <div class="node"><strong>Instance B</strong><span>Cannot find the run → false 404 for completed customer work.</span></div>
+        </div>
+        <p class="lede">The independent verifier checked the production behavior described in the specification. The existing automated checks had only tested the local implementation.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="This is the updated view requested for the presentation. I aggregated nine numeric rollups and used the fuller worklog for ENG-1832 to avoid double-counting its shorter spec rollup. Two placeholder rollups without times are excluded.">
+      <header class="topline"><span>14 · Updated rollups</span><span>31h 03m across 9 numeric worklogs/specs</span></header>
+      <div class="content top">
+        <p class="kicker">Where the recorded time was spent</p>
+        <h2>Most recorded time was spent locally, before CI or human review.</h2>
+        <div class="bars" role="img" aria-label="Time split: Code and Test 43.8 percent, Info 25.8 percent, Authoring 12.3 percent, Orchestration 10.5 percent, Wait 7.6 percent">
+          <div class="bar"><span class="bar-name">Code / Test</span><span class="track"><span class="fill" style="--w: 43.8%"></span></span><span class="bar-value">816m · 43.8%</span></div>
+          <div class="bar"><span class="bar-name">Info</span><span class="track"><span class="fill" style="--w: 25.8%"></span></span><span class="bar-value">481m · 25.8%</span></div>
+          <div class="bar"><span class="bar-name">Authoring</span><span class="track"><span class="fill" style="--w: 12.3%"></span></span><span class="bar-value">229m · 12.3%</span></div>
+          <div class="bar"><span class="bar-name">Orchestration</span><span class="track"><span class="fill" style="--w: 10.5%"></span></span><span class="bar-value">196m · 10.5%</span></div>
+          <div class="bar wait"><span class="bar-name">Wait</span><span class="track"><span class="fill" style="--w: 7.6%"></span></span><span class="bar-value">141m · 7.6%</span></div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric"><strong>92.4%</strong><span>local work before remote wait</span></div>
+          <div class="metric"><strong>56.2%</strong><span>outside Code / Test</span></div>
+          <div class="metric"><strong>25.8%</strong><span>understanding and verification</span></div>
+          <div class="metric"><strong>7.6%</strong><span>waiting on CI, users or reviewers</span></div>
+        </div>
+        <p class="source">Reconstructed estimates from current each-claude rollups; useful as an operational trend, not a controlled benchmark. The published article’s earlier aggregate was 92.5% local / 7.5% wait.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="This is how I gather information from each-claude before sharing a conclusion. I inventory the specs, separate complete numeric rollups from partial logs, remove duplicates and placeholders, and state the limitations next to the result.">
+      <header class="topline"><span>15 · Current repository data</span><span>More work exists than the time chart shows</span></header>
+      <div class="content top">
+        <p class="kicker">each-claude specification audit</p>
+        <h2>The repository contains more execution logs, but many do not have complete time data.</h2>
+        <div class="metric-grid">
+          <div class="metric"><strong>31 / 90</strong><span>archive files added or updated in the last 14 days / total Markdown files currently in <code>specs/archive/</code></span></div>
+          <div class="metric"><strong>52</strong><span>specification files with an Execution Log section</span></div>
+          <div class="metric"><strong>9</strong><span>non-duplicate logs with numeric values for all five time buckets</span></div>
+          <div class="metric"><strong>31h 03m</strong><span>time recorded by those nine complete numeric rollups</span></div>
+        </div>
+        <article class="card warm"><h3>How I gather the information</h3><p>I read the specs and worklogs in each-claude, find the logs with numeric values for all five buckets, remove duplicate and placeholder rollups, add the minutes, and keep the collection limits visible. The nine complete rollups support the percentages on the previous slide; the 52 Execution Logs provide additional task, verification and outcome evidence.</p></article>
+        <p class="source">Current local inventory of <code>.claude/specs/</code>. “31” is based on filesystem modification time within the last 14 days, so it means added or updated—not necessarily 31 newly completed tasks. Placeholder bucket tables and the shorter duplicate ENG-1832 spec rollup are excluded from the nine-task time total.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="The message is not that coding is unimportant. It is that more than half of the system is everything around coding. If we only optimize generation speed, we are optimizing less than half the loop.">
+      <header class="topline"><span>16 · What we learned</span><span>Measure the whole system</span></header>
+      <div class="content top">
+        <p class="kicker">What the current data suggests</p>
+        <h2>The data shows which parts of the workflow we should improve.</h2>
+        <div class="grid-2">
+          <article class="card warm"><h3>Reading is part of implementation</h3><p>A quarter of the time is understanding and checking. Better indexes, local documentation and memory can reduce repeated work.</p></article>
+          <article class="card"><h3>CI should confirm local work</h3><p>Only 7.6% is remote wait. Most checking and correction happens locally before we use shared CI resources.</p></article>
+          <article class="card accent"><h3>Review specifications early</h3><p>A specification review can correct a design before implementation time is spent.</p></article>
+          <article class="card"><h3>The verifier needs power to say no</h3><p>Otherwise “independent review” becomes another confidence summary.</p></article>
+          <article class="card"><h3>Sequential does not mean slow</h3><p>It minimizes contaminated state, rework and merge ambiguity across slices.</p></article>
+          <article class="card"><h3>The harness can also fail</h3><p>Verifiers miss defects and overstep. Boundaries need code, logs and human supervision—not prompts alone.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Introduce this as a real experiment, not an argument about favorite models. Burak and Eren's users and workflows migration gives us comparable slices. We change the model allocation while keeping the task contract and tools fixed.">
+      <header class="topline"><span>17 · Next experiment</span><span>Model allocation by role</span></header>
+      <div class="content top">
+        <p class="kicker">Users and Workflows Migration (burak/eren)</p>
+        <h2>Does a stronger model help more as the implementer or as the verifier?</h2>
+        <div class="prose">
+          <p>This migration gives us a real task with meaningful data-integrity risk, clear boundaries and several comparable slices. Instead of assuming the strongest model should write the code, we can test whether a stronger model provides more value during implementation or verification.</p>
+        </div>
+        <div class="experiment-grid">
+          <article class="card warm">
+            <p class="arm-title">Arm A</p>
+            <p class="arm-model">Stronger implementer · lighter verifier</p>
+            <ul class="arm-list"><li>Same approved spec</li><li>Same tools and context pack</li><li>Same slice budget</li><li>Fresh role contexts</li></ul>
+          </article>
+          <div class="equal" aria-hidden="true">vs</div>
+          <article class="card accent">
+            <p class="arm-title">Arm B</p>
+            <p class="arm-model">Lighter implementer · stronger verifier</p>
+            <ul class="arm-list"><li>Same approved spec</li><li>Same tools and context pack</li><li>Same slice budget</li><li>Fresh role contexts</li></ul>
+          </article>
+        </div>
+        <p class="lede">A final independent verifier compares both results without knowing which model setup produced them. The verifier used inside each arm does not evaluate its own result.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Keep this practical. Both setups receive the same task, tools and checks. We record correctness, rework, elapsed time and human help, then use one final independent review to compare the results.">
+      <header class="topline"><span>18 · Comparison</span><span>Same task, different model roles</span></header>
+      <div class="content top">
+        <p class="kicker">A simple comparison</p>
+        <h2>Give both setups the same task and decide with the same checks.</h2>
+        <div class="grid-2">
+          <article class="card"><h3>What stays the same</h3><p>The approved specification, tools, permissions, starting point and size of each task slice.</p></article>
+          <article class="card"><h3>What changes</h3><p>Which model implements the slice and which model verifies it.</p></article>
+          <article class="card"><h3>What we record</h3><p>First-pass acceptance, defects found, rework time, total time and human interventions.</p></article>
+          <article class="card warm"><h3>How we decide</h3><p>One final independent review compares both results. We choose the setup that produces more correct work with less rework.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Explain the calculation directly. If one setup produces 20% more verified work at the same quality level, five developers could produce roughly the capacity of six. This is a capacity comparison, not a claim that software literally replaces a person.">
+      <header class="topline"><span>19 · Why measure</span><span>Small percentages become team capacity</span></header>
+      <div class="content">
+        <p class="kicker">Why a small improvement matters</p>
+        <h2>If verified throughput improves by 20%, five developers could produce roughly the capacity of six.</h2>
+        <div class="grid-3">
+          <article class="card"><h3>Not faster typing</h3><p>More accepted work at the same correctness bar.</p></article>
+          <article class="card"><h3>Not a demo score</h3><p>Measured across slices, rework, defects and human attention.</p></article>
+          <article class="card warm"><h3>Not literally a hire</h3><p>A capacity equivalent, subject to coordination and workload constraints.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="End with a team proposal. Every week, identify one repeated problem, one possible workflow improvement and one correctness measure. Keep tools simple and fast. Treat the harness as shared infrastructure used by the team and by agents.">
+      <header class="topline"><span>20 · Team operating model</span><span>Improve the harness together</span></header>
+      <div class="content top">
+        <p class="kicker">What changes on Monday</p>
+        <h2>Treat the harness as shared team infrastructure.</h2>
+        <div class="grid-3">
+          <article class="card warm"><h3>Ergonomics baseline</h3><p>Fast search, fast checks, visible state, easy handoff, deterministic agent commands.</p></article>
+          <article class="card"><h3>Weekly problem</h3><p>Use rollups to choose one repeated source of friction instead of relying on the most recent complaint.</p></article>
+          <article class="card accent"><h3>Correctness baseline</h3><p>No “done” without a reproducible proof point tied to the spec.</p></article>
+        </div>
+        <p class="claim"><strong>Our improvement process:</strong> identify a recurring problem → try a small change → measure the result → document the useful approach → make it available to the team.</p>
+        <div class="verse">
+          <p>We should improve models, tools, instructions and verification as one workflow. We should use measurements to decide whether a change helped.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Invite discussion around three questions: where does our loop feel uncomfortable after three hours, what should we instrument next, and who will own the CRM migration experiment.">
+      <header class="topline"><span>Close</span><span>Questions</span></header>
+      <div class="content centered">
+        <p class="kicker">Discussion</p>
+        <h2 class="discussion-title">What should we improve and measure next?</h2>
+        <p class="lede">Which parts of our current agent workflow create repeated friction, and which experiment should we run first?</p>
+        <p class="source">Public note: <a href="https://www.linkedin.com/pulse/we-timed-our-coding-agents-92-work-happened-before-mamaqi-kapllani-f3icf/" target="_blank" rel="noreferrer">We Timed Our Coding Agents<span class="sr-only"> (opens in a new tab)</span></a> · Internal sources: each-claude operating contract, incremental implementation skill, verifier protocol, current spec rollups.</p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="notes" id="notes" aria-live="polite"></aside>
+  <nav class="controls" aria-label="Slide controls">
+    <div class="control-group">
+      <a class="back-link" href="/#notes">← Back to notes</a>
+      <button type="button" id="prev" aria-label="Previous slide">←</button>
+      <button type="button" id="next" aria-label="Next slide">→</button>
+      <span class="counter" id="counter" aria-live="polite">1 / 22</span>
+    </div>
+    <div class="progress" id="progress-track" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="22" aria-valuenow="1"><span id="progress"></span></div>
+    <div class="control-group">
+      <span class="hint">← → navigate · N notes · F fullscreen</span>
+      <button type="button" id="notes-toggle" aria-label="Toggle presenter notes" aria-controls="notes" aria-expanded="false">Notes</button>
+    </div>
+  </nav>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const counter = document.querySelector('#counter');
+    const progress = document.querySelector('#progress');
+    const progressTrack = document.querySelector('#progress-track');
+    const notes = document.querySelector('#notes');
+    const previousButton = document.querySelector('#prev');
+    const nextButton = document.querySelector('#next');
+    const notesButton = document.querySelector('#notes-toggle');
+    let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+
+    function startWorkflowAnimation() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const paths = [0, 1, 2].map(i => document.querySelector(`#workflow-path-${i}`));
+      if (!paths[0]) return;
+      const nodes = [0, 1, 2].map(i => document.querySelector(`#workflow-node-${i}`));
+      const labels = [0, 1, 2].map(i => document.querySelector(`#workflow-label-${i}`));
+      const token = document.querySelector('#workflow-token');
+      const trail = document.querySelector('#workflow-trail');
+      const lengths = paths.map(path => path.getTotalLength());
+      const colors = ['#23395b', '#8f5b3e', '#171717'];
+      let segment = 0;
+      let phase = 'rest';
+      let started = null;
+
+      function frame(timestamp) {
+        if (started === null) started = timestamp;
+        const elapsed = timestamp - started;
+        if (phase === 'rest') {
+          nodes[segment].classList.add('hot');
+          token.setAttribute('visibility', 'hidden');
+          trail.setAttribute('opacity', '0');
+          if (elapsed >= 850) {
+            phase = 'travel';
+            started = timestamp;
+            nodes.forEach(node => node.classList.remove('hot'));
+            labels[segment].classList.add('hot');
+            token.setAttribute('fill', colors[segment]);
+            trail.setAttribute('fill', colors[segment]);
+            token.setAttribute('visibility', 'visible');
+          }
+        } else {
+          const duration = Math.min(1100, Math.max(380, lengths[segment] * 2.2));
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = progress < .5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+          const point = paths[segment].getPointAtLength(eased * lengths[segment]);
+          const trailPoint = paths[segment].getPointAtLength(Math.max(eased - .08, 0) * lengths[segment]);
+          token.setAttribute('cx', point.x);
+          token.setAttribute('cy', point.y);
+          trail.setAttribute('cx', trailPoint.x);
+          trail.setAttribute('cy', trailPoint.y);
+          trail.setAttribute('opacity', eased > .08 ? '.3' : '0');
+          if (progress >= 1) {
+            labels.forEach(label => label.classList.remove('hot'));
+            segment = (segment + 1) % 3;
+            phase = 'rest';
+            started = timestamp;
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function render() {
+      slides.forEach((slide, i) => {
+        const isActive = i === index;
+        slide.classList.toggle('active', isActive);
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-hidden', String(!isActive));
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', `Slide ${i + 1} of ${slides.length}`);
+      });
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+      progressTrack.setAttribute('aria-valuemax', String(slides.length));
+      progressTrack.setAttribute('aria-valuenow', String(index + 1));
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === slides.length - 1;
+      notes.textContent = slides[index].dataset.note || 'No presenter note.';
+      history.replaceState(null, '', `#${index + 1}`);
+      document.title = `${index + 1}/${slides.length} · Agent Harness at each::labs`;
+    }
+
+    function move(delta) {
+      index = Math.max(0, Math.min(slides.length - 1, index + delta));
+      render();
+    }
+
+    function toggleNotes() {
+      const visible = notes.classList.toggle('visible');
+      notesButton.setAttribute('aria-expanded', String(visible));
+    }
+    async function toggleFullscreen() {
+      if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.();
+      else await document.exitFullscreen?.();
+    }
+
+    previousButton.addEventListener('click', () => move(-1));
+    nextButton.addEventListener('click', () => move(1));
+    notesButton.addEventListener('click', toggleNotes);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        notes.classList.remove('visible');
+        notesButton.setAttribute('aria-expanded', 'false');
+      }
+      if (event.target.closest?.('a, button, input, textarea, select, [contenteditable="true"]')) return;
+      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); move(1); }
+      if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); move(-1); }
+      if (event.key === 'Home') { index = 0; render(); }
+      if (event.key === 'End') { index = slides.length - 1; render(); }
+      if (event.key.toLowerCase() === 'n') toggleNotes();
+      if (event.key.toLowerCase() === 'f') toggleFullscreen();
+    });
+    window.addEventListener('hashchange', () => {
+      const requested = Number(location.hash.slice(1)) - 1;
+      if (Number.isInteger(requested)) { index = Math.max(0, Math.min(slides.length - 1, requested)); render(); }
+    });
+    render();
+    startWorkflowAnimation();
+  </script>
+</body>
+</html>
