@@ -494,7 +494,10 @@ function Method() {
           <circle id="mv-trail" r="3" fill="#23395B" opacity="0" />
           <circle id="mv-token" r="5.5" fill="#23395B" stroke="#F7F3EC" strokeWidth="1.4" visibility="hidden" />
         </svg>
-        <figcaption>agent · verifier · harness — a full note on this is coming</figcaption>
+        <figcaption>
+          agent · verifier · harness — <a href="/notes/agent-harness-at-eachlabs/">the harness presentation</a> ·{" "}
+          <a href="https://github.com/kevinmamaqi/agent-first-workbench" target="_blank" rel="noreferrer">the workbench setup</a>
+        </figcaption>
       </figure>
       <script dangerouslySetInnerHTML={{ __html: METHOD_SCRIPT }} />
     </section>

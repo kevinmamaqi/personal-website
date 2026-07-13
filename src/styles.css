@@ -339,6 +339,12 @@ ul, ol {
   text-align: center;
 }
 
+.method-fig figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
 .method-copy {
   max-width: 680px;
   margin-bottom: 28px;
