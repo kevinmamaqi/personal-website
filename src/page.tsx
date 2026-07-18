@@ -2,11 +2,13 @@ import type { JSX } from "react";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/kevinmamaqi";
 const MALT_URL = "https://www.malt.es/profile/kevinmamaqikapllani";
+const CV_URL = "/cv/";
 
 const NAV = [
   { label: "Skills", href: "#skills" },
   { label: "Work", href: "#work" },
   { label: "Notes", href: "#notes" },
+  { label: "CV", href: CV_URL },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -204,6 +206,9 @@ function Hero() {
         Fifteen years building software, still writing code. I lead teams shipping reliable systems across AI infrastructure, maritime operations, and healthcare — clear product decisions, understandable architecture, and code that survives production.
       </p>
       <div className="hero-actions">
+        <a className="text-link" href={CV_URL}>
+          View CV <I.arrowUpRight />
+        </a>
         <a className="text-link" href="#work">
           Selected work
         </a>

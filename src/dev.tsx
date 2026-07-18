@@ -38,6 +38,21 @@ async function renderPage(): Promise<string> {
   return html({ title: TITLE, description: DESCRIPTION, body, css: `${base}\n${page}` });
 }
 
+async function renderCvPage(): Promise<string> {
+  const pageMod = await import(`./cv.tsx?t=${Date.now()}`);
+  const CvPage = pageMod.default;
+  const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
+  const cv = await readFile(resolve(here, "cv-styles.css"), "utf8");
+  const body = renderToStaticMarkup(<CvPage />);
+  return html({
+    title: "CV - Kevin Mamaqi Kapllani",
+    description: "Printable CV of Kevin Mamaqi Kapllani, Engineering Manager (Hands-On) in Barcelona.",
+    body,
+    css: `${base}\n${cv}`,
+    url: "https://kevinmamaqi.com/cv/",
+  });
+}
+
 const port = Number(process.env.PORT ?? 3000);
 
 const server = Bun.serve({
@@ -50,6 +65,16 @@ const server = Bun.serve({
     if (pathname === "/" || pathname === "/index.html") {
       try {
         const body = await renderPage();
+        return new Response(body, { headers: { "content-type": MIME[".html"] } });
+      } catch (e) {
+        console.error(e);
+        return new Response(String(e), { status: 500 });
+      }
+    }
+
+    if (pathname === "/cv" || pathname === "/cv/" || pathname === "/cv/index.html") {
+      try {
+        const body = await renderCvPage();
         return new Response(body, { headers: { "content-type": MIME[".html"] } });
       } catch (e) {
         console.error(e);

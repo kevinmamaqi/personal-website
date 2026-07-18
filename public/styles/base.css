@@ -113,9 +113,24 @@ h1, h2 {
   border-bottom: 1px solid var(--ink);
 }
 
+.site-header a {
+  text-decoration: none;
+}
+
 .site-name {
+  line-height: 1;
   font-weight: 650;
   text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .eyebrow {
@@ -152,6 +167,11 @@ h1, h2 {
 
   .site-header {
     align-items: flex-start;
+  }
+
+  .nav {
+    gap: 16px;
+    font-size: 13px;
   }
 
   .section {

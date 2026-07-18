@@ -11,17 +11,6 @@ ul, ol {
   list-style: none;
 }
 
-.site-name {
-  line-height: 1;
-}
-
-.nav {
-  display: flex;
-  gap: 24px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
 .hero {
   max-width: 860px;
   padding: 92px 0 88px;
@@ -450,11 +439,6 @@ ul, ol {
 }
 
 @media (max-width: 860px) {
-  .nav {
-    gap: 16px;
-    font-size: 13px;
-  }
-
   .hero {
     padding: 60px 0;
   }

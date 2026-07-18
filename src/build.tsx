@@ -4,6 +4,7 @@ import { resolve, dirname } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import Page from "./page.tsx";
+import CvPage from "./cv.tsx";
 import { html } from "./template.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -60,6 +61,12 @@ async function loadCss(): Promise<string> {
   return `${base}\n${page}`;
 }
 
+async function loadCvCss(): Promise<string> {
+  const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
+  const cv = await readFile(resolve(here, "cv-styles.css"), "utf8");
+  return `${base}\n${cv}`;
+}
+
 async function prepareDist() {
   await rm(dist, { recursive: true, force: true });
   await mkdir(dist, { recursive: true });
@@ -80,6 +87,19 @@ async function main() {
   const body = renderToStaticMarkup(<Page />);
   const doc = html({ title: TITLE, description: DESCRIPTION, body, css, url: SITE_URL, structuredData: STRUCTURED_DATA });
   await writeFile(resolve(dist, "index.html"), doc, "utf8");
+
+  const cvDir = resolve(dist, "cv");
+  await mkdir(cvDir, { recursive: true });
+  const cvBody = renderToStaticMarkup(<CvPage />);
+  const cvDoc = html({
+    title: "CV - Kevin Mamaqi Kapllani",
+    description: "Printable CV of Kevin Mamaqi Kapllani, Engineering Manager (Hands-On) in Barcelona.",
+    body: cvBody,
+    css: await loadCvCss(),
+    url: `${SITE_URL}cv/`,
+  });
+  await writeFile(resolve(cvDir, "index.html"), cvDoc, "utf8");
+
   await copyPublic();
   const t = (performance.now() - t0).toFixed(1);
   const size = (await stat(resolve(dist, "index.html"))).size;

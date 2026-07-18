@@ -1,6 +1,6 @@
 # kevinmamaqi.com
 
-The personal site of Kevin Mamaqi Kapllani — a small, statically rendered single-page site for selected work, notes, and LinkedIn contact.
+The personal site of Kevin Mamaqi Kapllani — a small, statically rendered site for selected work, notes, a printable CV, and LinkedIn contact.
 
 Built with **Bun + React 19 + SSG**. No client-side JavaScript ships to the browser; the page is rendered to HTML at build time and served as a static file.
 
@@ -70,6 +70,8 @@ website/
 │   ├── build.tsx        SSG entry: renders to dist/index.html
 │   ├── dev.tsx          Bun.serve() dev server
 │   ├── page.tsx         the frontpage (content + structure)
+│   ├── cv.tsx           the print-ready CV page at /cv/
+│   ├── cv-styles.css    CV screen and print styles
 │   ├── styles.css       frontpage-only styles (base.css is inlined ahead)
 │   └── template.ts      HTML document shell (head, meta, fonts)
 ├── package.json
@@ -80,10 +82,14 @@ website/
 
 Every page type shares one design system. `public/styles/base.css` owns the tokens and chrome; the frontpage, notes, and presentations each layer their own entity stylesheet on top. New pages extend an entity stylesheet — tokens are never copied into a page.
 
+## CV
+
+`/cv/` is generated as a static page alongside the homepage. It uses the shared site header, while its own header includes a `Download CV` link that opens `/cv.pdf` in a new tab. The print stylesheet remains tuned for A4.
+
 ## Legacy sites
 
 Older implementations are archived on GitHub: `gatsby-kevinmamaqi`, `web`, `web_sapper`, and `simpleportfolio`. The live `kevinmamaqi.com` domain was moved to this Cloudflare Pages project on 2026-06-19; this folder is the canonical current implementation.
 
 ## Design
 
-Warm-paper palette, EB Garamond for display, Inter for sans. The production version is intentionally simpler than the earlier editorial draft: no monogram, no ventures section, no CV download, and no decorative sketch layer. The "worked with" section is text-only in a compact monochrome wordmark-style grid.
+Warm-paper palette, EB Garamond for display, Inter for sans. The production version is intentionally simpler than the earlier editorial draft: no monogram, no ventures section, and no decorative sketch layer. The "worked with" section is text-only in a compact monochrome wordmark-style grid.
