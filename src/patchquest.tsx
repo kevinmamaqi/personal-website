@@ -21,19 +21,19 @@ const START_STEPS = [
     step: "Open the local runner",
     actor: "You",
     machine: false,
-    text: "Run one small Bun server and open PatchQuest in your browser. Every seeded course, its sections, sources, and question prompts are visible from the first screen.",
+    text: "Run one small Bun app and open PatchQuest in your browser. The first screen makes the next steps visible: connect an agent, choose a course, then begin.",
+  },
+  {
+    step: "Connect your agent",
+    actor: "You + app",
+    machine: false,
+    text: "PatchQuest detects Claude Code or Cursor when it can, then adds only its own local MCP entry after an explicit Connect click. You can continue without an agent too.",
   },
   {
     step: "Choose a course and path",
     actor: "You",
     machine: false,
     text: "Pick a seeded course, then its path and workspace or learning context. Progress is local and stays separated by that course and path.",
-  },
-  {
-    step: "Check the workspace",
-    actor: "Agent",
-    machine: true,
-    text: "For a coding course, the agent checks only the documented runtime and project dependencies. It reports what is present or missing, then suggests—never starts—the development command.",
   },
   {
     step: "Build, answer, return",
@@ -90,9 +90,9 @@ function Hero(): JSX.Element {
         <span />
       </div>
       <p className="hero-copy">
-        PatchQuest is a small local course tracker with a browser UI, SQLite
-        progress, and MCP. Fork it, seed a course for any subject, and let a
-        coding agent guide and evaluate the answers a learner submits in the UI.
+        PatchQuest is a small standalone local course tracker with a browser UI,
+        SQLite progress, and MCP. Fork it, seed a course for any subject, connect
+        a coding agent when you want one, and keep answers in the UI.
       </p>
       <div className="hero-actions">
         <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
@@ -229,8 +229,8 @@ function Try(): JSX.Element {
           <h3>1 · Open it locally</h3>
           <p>
             Clone the tracker, install its two small local dependencies, and
-            start the Bun server. The browser becomes the place to choose a
-            course, select a path, see the next section, and submit answers.
+            start the Bun app. The browser first offers a safe agent connection,
+            then lets you choose a course, select a path, and submit answers.
           </p>
           <pre className="pq-code">
             <code>{TRY_CODE}</code>
@@ -239,10 +239,9 @@ function Try(): JSX.Element {
         <div className="pq-way">
           <h3>2 · Keep the work yours</h3>
           <p>
-            Connect a coding agent through the included MCP server. It lists
-            seeded courses, reads the same local SQLite progress as the browser,
-            guides one next action, then evaluates the submitted answer against
-            the course sources.
+            The standalone UI can detect Claude Code or Cursor and configure its
+            own local MCP entry after you approve it. The agent then lists seeded
+            courses, guides one action, and evaluates answers in the browser.
           </p>
           <a className="text-link" href={`${REPO_URL}#readme`} target="_blank" rel="noreferrer">
             Read the course README <I.arrowUpRight />
@@ -260,9 +259,9 @@ function Cta(): JSX.Element {
         <p className="eyebrow">Source</p>
         <h2>A lightweight tracker, not another learning platform.</h2>
         <p className="pq-cta-copy">
-          The repository includes the Bun runner, MCP bridge, generic course
-          format, seed command, and a complete DDD example. Your course still
-          owns its sources and the work a learner produces.
+          The repository includes the Bun app, MCP bridge, safe agent connection
+          flow, generic course format, seed command, and a DDD example. Your
+          course still owns its sources and the work a learner produces.
         </p>
       </div>
       <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
