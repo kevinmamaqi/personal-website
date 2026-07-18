@@ -108,6 +108,16 @@ const PROJECTS: Project[] = [
 
 const NOTES = [
   {
+    title: "PatchQuest — self-learn backend development",
+    source: "Open source · Teaching project",
+    date: "2026-07-18",
+    dateLabel: "18 Jul 2026",
+    href: "/patchquest/",
+    external: false,
+    summary:
+      "A self-learn backend course for DDD and hexagonal architecture in Node.js, Go, and Bun. Build in your own workspace with source-linked questions and local progress.",
+  },
+  {
     title: "An agent-first macOS workbench",
     source: "Open-source setup",
     date: "2026-07-13",

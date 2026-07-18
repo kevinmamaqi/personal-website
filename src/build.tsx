@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import Page from "./page.tsx";
 import CvPage from "./cv.tsx";
+import PatchQuestPage from "./patchquest.tsx";
 import { html } from "./template.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -67,6 +68,13 @@ async function loadCvCss(): Promise<string> {
   return `${base}\n${cv}`;
 }
 
+async function loadPatchquestCss(): Promise<string> {
+  const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
+  const page = await readFile(resolve(here, "styles.css"), "utf8");
+  const patchquest = await readFile(resolve(here, "patchquest-styles.css"), "utf8");
+  return `${base}\n${page}\n${patchquest}`;
+}
+
 async function prepareDist() {
   await rm(dist, { recursive: true, force: true });
   await mkdir(dist, { recursive: true });
@@ -99,6 +107,19 @@ async function main() {
     url: `${SITE_URL}cv/`,
   });
   await writeFile(resolve(cvDir, "index.html"), cvDoc, "utf8");
+
+  const patchquestDir = resolve(dist, "patchquest");
+  await mkdir(patchquestDir, { recursive: true });
+  const patchquestBody = renderToStaticMarkup(<PatchQuestPage />);
+  const patchquestDoc = html({
+    title: "PatchQuest — Self-Learn Backend Development · Kevin Mamaqi",
+    description:
+      "PatchQuest is a self-learn backend development course for DDD and hexagonal architecture in Node.js, Go, and Bun.",
+    body: patchquestBody,
+    css: await loadPatchquestCss(),
+    url: `${SITE_URL}patchquest/`,
+  });
+  await writeFile(resolve(patchquestDir, "index.html"), patchquestDoc, "utf8");
 
   await copyPublic();
   const t = (performance.now() - t0).toFixed(1);
