@@ -18,28 +18,28 @@ const I = {
 
 const START_STEPS = [
   {
+    step: "Open the local runner",
+    actor: "You",
+    machine: false,
+    text: "Run one small Bun server and open PatchQuest in your browser. The DDD course, sources, sections, and question prompts are visible from the first screen.",
+  },
+  {
     step: "Choose a path",
     actor: "You",
     machine: false,
-    text: "Say “Let’s start.” The agent asks which path you want: Node.js + TypeScript, Go, or Bun + TypeScript. It waits for your choice instead of guessing.",
+    text: "Select Node.js + TypeScript, Go, or Bun + TypeScript and name the workspace where you will build. Progress is stored locally and stays separated by that path.",
   },
   {
     step: "Check the workspace",
     actor: "Agent",
     machine: true,
-    text: "You confirm a code workspace. The agent checks that path’s runtime and project dependencies, opens its private local progress database, and suggests—never starts—the development server command.",
+    text: "The agent checks only the selected runtime and project dependencies. It reports what is present or missing, then suggests—never starts—the development server command.",
   },
   {
-    step: "Build one small thing",
+    step: "Build, answer, return",
     actor: "You + agent",
     machine: true,
-    text: "Each step gives one bounded action in your own folder, then asks a question. You submit your explanation; the agent evaluates it against the named source and records the result locally.",
-  },
-  {
-    step: "Return with evidence",
-    actor: "You",
-    machine: false,
-    text: "Your workspace owns its progress. When you return, the agent continues the unfinished step or asks a related recall question before moving on.",
+    text: "Each section gives one bounded action and a question. You submit in the UI; the browser refreshes with source-linked MCP feedback and progress when the agent evaluates it.",
   },
 ];
 
@@ -56,8 +56,9 @@ const MODULES = [
 
 const TRY_CODE = `git clone https://github.com/kevinmamaqi/patchquest
 cd patchquest
-# Open this folder in a coding agent, then say:
-Let's start.`;
+bun install
+bun run dev
+# Open http://127.0.0.1:3030`;
 
 function Header(): JSX.Element {
   return (
@@ -89,10 +90,10 @@ function Hero(): JSX.Element {
         <span />
       </div>
       <p className="hero-copy">
-        PatchQuest is a practical course for building a small backend in Node.js,
-        Go, or Bun. You choose a language, work in your own folder, and learn
-        the same architectural decisions through short code exercises, questions,
-        feedback, and later review.
+        PatchQuest is a small local course runner for building a backend in
+        Node.js, Go, or Bun. It shows the DDD path in a browser, records progress
+        locally, and lets a coding agent guide and evaluate submitted answers
+        through MCP.
       </p>
       <div className="hero-actions">
         <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
@@ -138,9 +139,9 @@ function What(): JSX.Element {
         <div>
           <p className="tag pq-tag--planned">Local by design</p>
           <p>
-            Course material is Markdown and references only. Code and a private
-            SQLite progress record live in your own workspace, one database per
-            path—nothing is hosted or collected by PatchQuest.
+            A dependency-light Bun server renders the course UI. The selected
+            workspace, answers, feedback, and section progress stay in a local
+            SQLite database—nothing is hosted or collected by PatchQuest.
           </p>
         </div>
       </div>
@@ -177,7 +178,8 @@ function Start(): JSX.Element {
         ))}
       </ol>
       <p className="section-note">
-        The agent checks dependencies and suggests the development command; you
+        The UI is the shared learning record. An MCP-connected agent can read
+        the next activity, record evidence, and evaluate submitted answers; you
         keep control of installs, server launches, and every code change.
       </p>
     </section>
@@ -216,7 +218,7 @@ function Try(): JSX.Element {
     <section id="try" className="section">
       <div className="section-head">
         <p className="eyebrow">Start here</p>
-        <h2>Open the course. Then say the words.</h2>
+        <h2>Open the course. Then make progress visible.</h2>
       </div>
       <div className="section-motif" aria-hidden>
         <span />
@@ -227,9 +229,9 @@ function Try(): JSX.Element {
         <div className="pq-way">
           <h3>1 · Open it locally</h3>
           <p>
-            Clone the Markdown course and open that folder with a coding agent
-            that reads repository instructions. There is no starter service to
-            install in the course itself.
+            Clone the course runner, install its two small local dependencies,
+            and start the Bun server. The browser becomes the place to select a
+            path, see the next section, and submit answers.
           </p>
           <pre className="pq-code">
             <code>{TRY_CODE}</code>
@@ -238,10 +240,10 @@ function Try(): JSX.Element {
         <div className="pq-way">
           <h3>2 · Keep the work yours</h3>
           <p>
-            The agent will ask for a separate workspace, check its dependencies,
-            and keep question attempts, paths, and evidence in its local SQLite
-            progress database. Each step ends with a question the agent evaluates
-            against the course references.
+            Connect a coding agent through the included MCP server. It reads the
+            same local SQLite progress as the browser, guides one next action,
+            then evaluates the answer you submitted in the UI against the course
+            sources.
           </p>
           <a className="text-link" href={`${REPO_URL}#readme`} target="_blank" rel="noreferrer">
             Read the course README <I.arrowUpRight />
@@ -259,8 +261,9 @@ function Cta(): JSX.Element {
         <p className="eyebrow">Source</p>
         <h2>A lightweight course, not another framework.</h2>
         <p className="pq-cta-copy">
-          The repository holds the steps, research sources, and agent protocol.
-          Your chosen language path holds the application.
+          The repository includes the Bun runner, the MCP bridge, a reusable
+          course format, and a complete DDD example. Your chosen language path
+          still holds the application you build.
         </p>
       </div>
       <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
