@@ -21,19 +21,19 @@ const START_STEPS = [
     step: "Open the local runner",
     actor: "You",
     machine: false,
-    text: "Run one small Bun server and open PatchQuest in your browser. The DDD course, sources, sections, and question prompts are visible from the first screen.",
+    text: "Run one small Bun server and open PatchQuest in your browser. Every seeded course, its sections, sources, and question prompts are visible from the first screen.",
   },
   {
-    step: "Choose a path",
+    step: "Choose a course and path",
     actor: "You",
     machine: false,
-    text: "Select Node.js + TypeScript, Go, or Bun + TypeScript and name the workspace where you will build. Progress is stored locally and stays separated by that path.",
+    text: "Pick a seeded course, then its path and workspace or learning context. Progress is local and stays separated by that course and path.",
   },
   {
     step: "Check the workspace",
     actor: "Agent",
     machine: true,
-    text: "The agent checks only the selected runtime and project dependencies. It reports what is present or missing, then suggests—never starts—the development server command.",
+    text: "For a coding course, the agent checks only the documented runtime and project dependencies. It reports what is present or missing, then suggests—never starts—the development command.",
   },
   {
     step: "Build, answer, return",
@@ -80,9 +80,9 @@ function Header(): JSX.Element {
 function Hero(): JSX.Element {
   return (
     <section id="top" className="hero">
-      <p className="eyebrow">Open source · Self-learn course</p>
+      <p className="eyebrow">Open source · Local course tracker</p>
       <h1>
-        Self-learn backend development with <em>DDD and hexagonal architecture</em>.
+        Make learning progress <em>visible, local, and agent-guided</em>.
       </h1>
       <div className="hero-motif" aria-hidden>
         <span />
@@ -90,10 +90,9 @@ function Hero(): JSX.Element {
         <span />
       </div>
       <p className="hero-copy">
-        PatchQuest is a small local course runner for building a backend in
-        Node.js, Go, or Bun. It shows the DDD path in a browser, records progress
-        locally, and lets a coding agent guide and evaluate submitted answers
-        through MCP.
+        PatchQuest is a small local course tracker with a browser UI, SQLite
+        progress, and MCP. Fork it, seed a course for any subject, and let a
+        coding agent guide and evaluate the answers a learner submits in the UI.
       </p>
       <div className="hero-actions">
         <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
@@ -121,7 +120,7 @@ function What(): JSX.Element {
         <span />
       </div>
       <p className="pq-lede">
-        The course uses retrieval before rereading, small worked exercises,
+        A course can use retrieval before rereading, small worked exercises,
         source-linked feedback, and related recall on a later session. That
         combination helps expose gaps, turns correction into a concrete next
         action, and makes the architecture something you can use rather than
@@ -129,11 +128,11 @@ function What(): JSX.Element {
       </p>
       <div className="pq-status">
         <div>
-          <p className="tag pq-tag--done">One course, three paths</p>
+          <p className="tag pq-tag--done">Fork and seed</p>
           <p>
-            The starting choice is explicit: Node.js + TypeScript, Go, or Bun +
-            TypeScript. The concepts stay stable while the commands and project
-            structure fit the selected language.
+            The runner loads simple JSON course manifests. A fork can add a new
+            course with one seed command, then define its own paths, sections,
+            sources, and questions.
           </p>
         </div>
         <div>
@@ -191,7 +190,7 @@ function Modules(): JSX.Element {
     <section id="modules" className="section">
       <div className="section-head">
         <p className="eyebrow">The course</p>
-        <h2>Eight steps from model to runbook</h2>
+        <h2>The included DDD seed: eight steps from model to runbook</h2>
       </div>
       <div className="section-motif" aria-hidden>
         <span />
@@ -229,9 +228,9 @@ function Try(): JSX.Element {
         <div className="pq-way">
           <h3>1 · Open it locally</h3>
           <p>
-            Clone the course runner, install its two small local dependencies,
-            and start the Bun server. The browser becomes the place to select a
-            path, see the next section, and submit answers.
+            Clone the tracker, install its two small local dependencies, and
+            start the Bun server. The browser becomes the place to choose a
+            course, select a path, see the next section, and submit answers.
           </p>
           <pre className="pq-code">
             <code>{TRY_CODE}</code>
@@ -240,10 +239,10 @@ function Try(): JSX.Element {
         <div className="pq-way">
           <h3>2 · Keep the work yours</h3>
           <p>
-            Connect a coding agent through the included MCP server. It reads the
-            same local SQLite progress as the browser, guides one next action,
-            then evaluates the answer you submitted in the UI against the course
-            sources.
+            Connect a coding agent through the included MCP server. It lists
+            seeded courses, reads the same local SQLite progress as the browser,
+            guides one next action, then evaluates the submitted answer against
+            the course sources.
           </p>
           <a className="text-link" href={`${REPO_URL}#readme`} target="_blank" rel="noreferrer">
             Read the course README <I.arrowUpRight />
@@ -259,11 +258,11 @@ function Cta(): JSX.Element {
     <section className="section pq-cta">
       <div>
         <p className="eyebrow">Source</p>
-        <h2>A lightweight course, not another framework.</h2>
+        <h2>A lightweight tracker, not another learning platform.</h2>
         <p className="pq-cta-copy">
-          The repository includes the Bun runner, the MCP bridge, a reusable
-          course format, and a complete DDD example. Your chosen language path
-          still holds the application you build.
+          The repository includes the Bun runner, MCP bridge, generic course
+          format, seed command, and a complete DDD example. Your course still
+          owns its sources and the work a learner produces.
         </p>
       </div>
       <a className="button" href={REPO_URL} target="_blank" rel="noreferrer">
