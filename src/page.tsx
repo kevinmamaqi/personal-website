@@ -75,7 +75,7 @@ function Hero() {
         <p className="eyebrow">Tech Lead &amp; Engineering Manager · Execution infrastructure for AI agents · Barcelona</p>
         <h1>I build the infrastructure that runs AI agents <em>reliably at scale</em> — and lead the team that runs it.</h1>
         <div className="hero-motif" aria-hidden="true"><span /><span /><span /></div>
-        <p className="hero-copy">Fifteen years building software, still writing code. At Eachlabs I own the execution engine, dispatch and LLM router behind a platform running ~12M executions a month across 700+ models, and I lead the engineering team. The problems are the ones every agent platform hits: exactly-once dispatch, multi-provider failure, state at scale, and verifying what ships. Before that: maritime operations software at 90POE, hospital-facing healthcare products before that.</p>
+        <p className="hero-copy">Over a decade building software, still writing code. At Eachlabs I own the execution engine, dispatch and LLM router behind a platform running millions of executions a month across hundreds of models, and I lead the engineering team. The problems are the ones every agent platform hits: exactly-once dispatch, multi-provider failure, state at scale, and verifying what ships. Before that: maritime operations software at 90POE, hospital-facing healthcare products before that.</p>
         <div className="hero-actions">
           <a className="text-link" href={LINKS.cv}>View CV <Arrow /></a>
           <a className="text-link" href="#work">Selected work</a>
@@ -119,7 +119,7 @@ function Method() {
   return (
     <section id="method" className="section">
       <SectionHead label="Method" title="How I work with AI" />
-      <p className="method-copy">The same loop runs the platform and the team. In the platform: an executor dispatches a step, a verifier checks the outcome (exactly-once, idempotent retry, fallback), and the result is committed before anything is billed. In the team: an agent proposes a change, a verifier hunts for the failure mode, and a harness turns the finding into a repeatable check — ~480 validation contracts, 25 skills, measured on a 32-slice production migration (25 verifier passes, 1 fail, 10 human gates). People stay in charge of what ships.</p>
+      <p className="method-copy">The same loop runs the platform and the team. In the platform: an executor dispatches a step, a verifier checks the outcome (exactly-once, idempotent retry, fallback), and the result is committed before anything is billed. In the team: an agent proposes a change, a verifier hunts for the failure mode, and a harness turns the finding into a repeatable check — using reusable validation contracts and skills, independent verifier passes and explicit human gates throughout production migrations. People stay in charge of what ships.</p>
       <ol className="method-steps" aria-label="Agent, verifier and harness loop">
         {steps.map(([role, action, arrow, result]) => (
           <li key={role}><strong>{role}</strong><span>{action}</span><span className="method-result"><span aria-hidden="true">{arrow}</span> {result}</span></li>

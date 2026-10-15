@@ -1,6 +1,6 @@
 // Public copy supplied in Kevin's 15 October 2026 implementation brief.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
-// Kevin also confirmed 700+ models and 75 providers for public copy in chat.
+// Public operating figures intentionally use generic magnitudes, per Kevin.
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/kevinmamaqi",
   github: "https://github.com/kevinmamaqi",
@@ -44,14 +44,14 @@ export const PROJECTS = [
     role: EACHLABS.role,
     period: EACHLABS.dates,
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates}`,
-    summary: "Lead a team of 5 engineers building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Wrote the first commit of the backend platform in March 2025 and still ship daily.",
+    summary: "Lead a small engineering team building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Wrote the first commit of the backend platform in March 2025 and still ship daily.",
     points: [
-      "Execution engine, dispatch and LLM router for ~12M executions/month (peak ~2,100/min) across 700+ models and 75 providers",
-      "Exactly-once dispatch: versioned gRPC handshake, 8 concurrent same-ID creates → 1 commit; 0 lost / 0 duplicate-billed across a 4,400-execution failure-injection series",
-      "Migrated the execution store (52M rows, 563 GB) off an ERP-hosted database to Aurora with zero data loss and a 6-minute write freeze; same customer load went from 56% to 100% success, +47% throughput",
-      "Resilience layer — bulkheads, circuit breakers, graceful drain, multi-provider fallback (successor dispatched 287 ms after failure); edge failures at 180 RPS from 2,322 to 12",
-      "Founded 11 backend services and the AWS CDK platform: 211 production alerts and 23 dashboards as code",
-      "Spec → execute → verify delivery system (~480 validation contracts) and 6 production Slack agents; team output 297 → 338 PRs/month, deploys 25 → 51/week",
+      "Execution engine, dispatch and LLM router handling millions of executions a month, with peaks of thousands per minute, across hundreds of models and dozens of providers",
+      "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
+      "Migrated a large execution store to Aurora through a controlled production cutover, preserving data integrity while improving reliability and throughput",
+      "Resilience layer — bulkheads, circuit breakers, graceful drain and automatic multi-provider fallback to recover from provider and edge failures",
+      "Built backend services and the AWS CDK platform, with production alerts and dashboards managed as code",
+      "Spec → execute → verify delivery system with reusable validation contracts and production Slack agents; increased team delivery throughput and deployment frequency",
     ],
     stack: "Go · TypeScript · gRPC · GraphQL · PostgreSQL/Aurora · Redis · SQS · AWS CDK · Grafana · OpenTelemetry",
   },
