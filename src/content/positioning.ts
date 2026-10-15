@@ -1,6 +1,6 @@
 // Public copy supplied in Kevin's 15 October 2026 implementation brief.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
-// Public scale uses Kevin's 10M+ executions/month and 700+ models figures.
+// Public scale uses Kevin's approved monthly execution and catalog figures.
 // Keep internal migration and test measurements qualitative.
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/kevinmamaqi",
@@ -56,7 +56,7 @@ export const PROJECTS = [
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
     summary: "Lead a team of 5 engineers building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Started part-time in March 2025 as tech lead for the new backend foundation, joined full-time in November 2025, and still ship daily.",
     points: [
-      "Execution engine, dispatch and LLM router handling 10M+ executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
+      "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
       "Migrated a large execution store to Aurora through a controlled production cutover, preserving data integrity while improving reliability and throughput",
       "Resilience layer — bulkheads, circuit breakers, graceful drain and automatic multi-provider fallback to recover from provider and edge failures",
