@@ -21,9 +21,16 @@ export const HEADLINE = "I build the infrastructure that runs AI agents reliably
 export const DESCRIPTION = "Hands-on Tech Lead and Engineering Manager building execution infrastructure for AI agents: dispatch, routing, state and verification. Barcelona, remote-friendly, US-overlap.";
 export const TITLE = "Kevin Mamaqi Kapllani — Tech Lead & Engineering Manager · AI Agent Infrastructure";
 export const REVIEW_NOTES = [
-  "paper links",
+  "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",
 ];
+
+export const RETINAL_PAPER = {
+  title: "A Novel Approach to Retinal Blood Vessel Segmentation Using Bi-LSTM-Based Networks",
+  year: 2025,
+  journal: "Mathematics",
+  url: "https://www.mdpi.com/2227-7390/13/13/2043",
+};
 
 export const EACHLABS = {
   role: "Engineering Manager (Hands-On)",

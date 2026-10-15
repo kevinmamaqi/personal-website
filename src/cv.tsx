@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { ThemeToggle } from "./theme-toggle.tsx";
-import { EACHLABS, NINETY_POE, NAV as SITE_NAV } from "./content/positioning.ts";
+import { EACHLABS, NINETY_POE, RETINAL_PAPER, NAV as SITE_NAV } from "./content/positioning.ts";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/kevinmamaqi";
 const MALT_URL = "https://www.malt.es/profile/kevinmamaqikapllani";
@@ -310,7 +310,7 @@ function Education() {
 function PublicWork() {
   return (
     <div className="cv-public-work">
-      <p><strong>2025</strong> · <em>A Novel Approach to Retinal Blood Vessel Segmentation Using Bi-LSTM-Based Networks</em>, Mathematics.</p>
+      <p><strong>{RETINAL_PAPER.year}</strong> · <a href={RETINAL_PAPER.url}><em>{RETINAL_PAPER.title}</em></a>, {RETINAL_PAPER.journal}.</p>
       <p><strong>2020</strong> · <em>Perspectives of Patients and Professionals on Information and Education After Myocardial Infarction</em>, JMIR Human Factors.</p>
       <p><strong>2024</strong> · <em>Ace the Technical Interview with AI</em>, practical workshop at Talent Arena / MWC Barcelona.</p>
     </div>

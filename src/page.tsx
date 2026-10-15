@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { ThemeToggle } from "./theme-toggle.tsx";
-import { LINKS, NAV, PROJECTS } from "./content/positioning.ts";
+import { LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
 import NOTES from "./content/writing.json";
 
 const SKILLS = [
@@ -176,6 +176,7 @@ function Speaking() {
       <SectionHead label="Speaking & research" title="Talks and papers" />
       <div className="note-list">
         <a className="note-item" href="/notes/ace-technical-interview-mwc-2024/"><span>MWC Barcelona 2024 · Talent Arena</span><strong>Ace the Technical Interview with AI</strong><p>A practical workshop on using AI to prepare for technical interviews.</p><Arrow /></a>
+        <a className="note-item" href={RETINAL_PAPER.url}><span>Paper · {RETINAL_PAPER.journal}, {RETINAL_PAPER.year}</span><strong>{RETINAL_PAPER.title}</strong><p>A Bi-LSTM approach to segmenting blood vessels in retinal images.</p><Arrow /></a>
         <div className="note-item note-item--plain"><span>Research · Manuscripts, 2026</span><strong>Retinal vessel segmentation</strong><p>Evaluation-policy stability; active domain adaptation.</p></div>
       </div>
     </section>
