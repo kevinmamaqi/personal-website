@@ -2,7 +2,7 @@
 
 The personal site of Kevin Mamaqi Kapllani — a small, statically rendered site for selected work, notes, a printable CV, and LinkedIn contact.
 
-Built with **Bun + React 19 + SSG**. No client-side JavaScript ships to the browser; the page is rendered to HTML at build time and served as a static file.
+Built with **Bun + React 19 + SSG**. Pages are rendered to HTML at build time and served as static files; a small shared script stores each visitor's light/dark theme preference.
 
 ## Requirements
 
@@ -85,6 +85,10 @@ Every page type shares one design system. `public/styles/base.css` owns the toke
 ## CV
 
 `/cv/` is generated as a static page alongside the homepage. It uses the shared site header, while its own header includes a `Download CV` link that opens `/cv.pdf` in a new tab. The print stylesheet remains tuned for A4.
+
+Role names and dates are shared in `src/content/positioning.ts`. Writing entries live in `src/content/writing.json`; add a row there without changing the list component. Set `linkedin` on a locally hosted article to add an “Also on LinkedIn” link. Keep external article links until their source Markdown is available.
+
+The PDF and 1200×630 social card are committed static exports. To refresh them, build first, then run `scripts/render-cv.py` (WeasyPrint and PyMuPDF) or `scripts/render-social-card.py` (ImageMagick) with `--font-dir` pointing to the Google Fonts EB Garamond and Inter TTFs, named `EBGaramond.ttf` and `Inter.ttf`. The CV renderer accepts `--preview-dir` for page images. On Homebrew macOS, WeasyPrint may need `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib`.
 
 ## Legacy sites
 

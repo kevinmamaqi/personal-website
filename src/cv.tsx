@@ -1,15 +1,11 @@
 import type { JSX } from "react";
+import { ThemeToggle } from "./theme-toggle.tsx";
+import { EACHLABS, NINETY_POE, RETINAL_PAPER, NAV as SITE_NAV } from "./content/positioning.ts";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/kevinmamaqi";
 const MALT_URL = "https://www.malt.es/profile/kevinmamaqikapllani";
 
-const NAV = [
-  { label: "Skills", href: "/#skills" },
-  { label: "Work", href: "/#work" },
-  { label: "Notes", href: "/#notes" },
-  { label: "CV", href: "/cv/" },
-  { label: "Contact", href: "/#contact" },
-];
+const NAV = SITE_NAV.map((item) => ({ ...item, href: item.href.startsWith("#") ? `/${item.href}` : item.href }));
 
 type Entry = {
   company: string;
@@ -24,8 +20,8 @@ type Entry = {
 const EXPERIENCE: Entry[] = [
   {
     company: "Eachlabs",
-    role: "Engineering Manager (Hands-On)",
-    dates: "Nov 2025 - Present",
+    role: EACHLABS.role,
+    dates: EACHLABS.dates,
     location: "Remote · Barcelona",
     focus: "AI infrastructure",
     stack: "TypeScript · Go · AWS · workflow orchestration · AI agents",
@@ -38,9 +34,18 @@ const EXPERIENCE: Entry[] = [
     ],
   },
   {
+    company: "Eachlabs",
+    role: EACHLABS.earlierRole,
+    dates: EACHLABS.earlierDates,
+    location: "Remote · Barcelona",
+    focus: "AI execution infrastructure",
+    stack: "Go · TypeScript · AWS",
+    bullets: [EACHLABS.earlierDescription],
+  },
+  {
     company: "Ninety Percent of Everything (90POE)",
-    role: "Senior Software Engineer · Team Lead",
-    dates: "Jul 2022 - Nov 2025",
+    role: NINETY_POE.role,
+    dates: NINETY_POE.dates,
     location: "Barcelona",
     focus: "Maritime software",
     stack: "Go · React · TypeScript · GraphQL · PostgreSQL · MongoDB · Redis · AWS · Docker · Kubernetes",
@@ -53,9 +58,17 @@ const EXPERIENCE: Entry[] = [
     ],
   },
   {
+    company: "Ninety Percent of Everything (90POE)",
+    role: "Senior Software Engineer",
+    dates: "Jul 2022 – Dec 2022",
+    location: "Barcelona",
+    focus: "Maritime software",
+    bullets: ["Built backend and frontend services for maritime operations before moving into the Team Lead role."],
+  },
+  {
     company: "Robbie AI",
-    role: "Lead Front End Engineer",
-    dates: "Jun 2021 - Jun 2022",
+    role: "Front-end lead",
+    dates: "Jun 2021 – Jun 2022",
     location: "Barcelona",
     focus: "Healthcare workflows",
     stack: "React · TypeScript · GraphQL · PostgreSQL · Jest · Cypress · Docker",
@@ -69,7 +82,7 @@ const EXPERIENCE: Entry[] = [
   {
     company: "AI-O · Artificial Intelligence Orchestrator",
     role: "Full Stack Engineer",
-    dates: "May 2020 - Jun 2021",
+    dates: "May 2020 – Jun 2021",
     location: "Barcelona",
     focus: "Digital health",
     stack: "React · React Native · Node.js · TypeScript · PostgreSQL · WebRTC · Docker",
@@ -82,7 +95,7 @@ const EXPERIENCE: Entry[] = [
   {
     company: "HartCare",
     role: "Co-Founder",
-    dates: "Nov 2019 - Dec 2021",
+    dates: "Nov 2019 – Dec 2021",
     location: "Barcelona",
     focus: "Digital health",
     stack: "Python · React · React Native · REST APIs",
@@ -97,7 +110,7 @@ const FOUNDER_WORK: Entry[] = [
   {
     company: "Euroviajar.com",
     role: "Founder",
-    dates: "Apr 2010 - Present",
+    dates: "Apr 2010 – Present",
     location: "Barcelona",
     focus: "Travel platform",
     bullets: [
@@ -120,7 +133,7 @@ const FOUNDER_WORK: Entry[] = [
   {
     company: "HartCare Algorithms · LUMC",
     role: "Software Engineer · Research",
-    dates: "2018 - 2020",
+    dates: "2018 – 2020",
     location: "Leiden · Barcelona",
     focus: "Health data",
     stack: "Python · kNN · React · React Native · REST APIs",
@@ -132,7 +145,7 @@ const FOUNDER_WORK: Entry[] = [
   {
     company: "TU Delft · Medisign",
     role: "Student Assistant · Medical design",
-    dates: "2017 - 2019",
+    dates: "2017 – 2019",
     location: "Delft, Netherlands",
     focus: "Medical innovation",
     bullets: [
@@ -143,7 +156,7 @@ const FOUNDER_WORK: Entry[] = [
   {
     company: "Selected client work",
     role: "Software engineer · consultant",
-    dates: "2011 - 2019",
+    dates: "2011 – 2019",
     location: "Spain · Netherlands",
     focus: "Product engineering",
     stack: "React · Node.js · Python · OpenCV · Leaflet · ECharts · Highcharts",
@@ -159,7 +172,7 @@ const TEACHING: Entry[] = [
   {
     company: "IT Academy · Barcelona Activa",
     role: "Coding Mentor",
-    dates: "Jan 2021 - Dec 2024",
+    dates: "Jan 2021 – Dec 2024",
     location: "Barcelona",
     focus: "Mentoring",
     bullets: [
@@ -170,7 +183,7 @@ const TEACHING: Entry[] = [
   {
     company: "Eurecat · Ceina Formació",
     role: "Software development mentor · teacher",
-    dates: "2020 - 2024",
+    dates: "2020 – 2024",
     location: "Barcelona",
     focus: "Teaching",
     bullets: [
@@ -184,13 +197,22 @@ function CvSiteHeader() {
   return (
     <header className="site-header cv-site-header">
       <a className="site-name" href="/" aria-label="Kevin Mamaqi home">Kevin Mamaqi</a>
-      <nav className="nav" aria-label="Primary">
+      <nav id="site-navigation" className="nav" aria-label="Primary">
         {NAV.map((item) => (
           <a key={item.label} href={item.href} aria-current={item.href === "/cv/" ? "page" : undefined}>
             {item.label}
           </a>
         ))}
       </nav>
+      <div className="site-header-actions">
+        <ThemeToggle />
+        <button className="menu-toggle" type="button" data-menu-toggle aria-controls="site-navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <span className="sr-only">Open navigation menu</span>
+        </button>
+      </div>
     </header>
   );
 }
@@ -199,7 +221,7 @@ function CvHeader() {
   return (
     <header className="cv-header">
       <h1>Kevin Mamaqi Kapllani</h1>
-      <p className="cv-title">Engineering Manager (Hands-On) · Barcelona, Spain · Updated July 2026</p>
+      <p className="cv-title">Engineering Manager (Hands-On) · Barcelona, Spain · Updated October 2026</p>
       <div className="cv-contact">
         <a href={LINKEDIN_URL}>LinkedIn</a>
         <span className="cv-contact-divider" aria-hidden>·</span>
@@ -274,11 +296,11 @@ function Education() {
   return (
     <div className="cv-education">
       <div className="cv-education-row">
-        <div><strong>2017 - 2019</strong><span>Delft, Netherlands</span></div>
+        <div><strong>2017 – 2019</strong><span>Delft, Netherlands</span></div>
         <div><h3>TU Delft</h3><p>MSc Integrated Product Design · Medisign specialisation</p></div>
       </div>
       <div className="cv-education-row">
-        <div><strong>2010 - 2015</strong><span>Zaragoza, Spain</span></div>
+        <div><strong>2010 – 2015</strong><span>Zaragoza, Spain</span></div>
         <div><h3>University of Zaragoza</h3><p>Degree in Industrial Design Engineering and Product Development</p></div>
       </div>
     </div>
@@ -288,7 +310,7 @@ function Education() {
 function PublicWork() {
   return (
     <div className="cv-public-work">
-      <p><strong>2025</strong> · <em>A Novel Approach to Retinal Blood Vessel Segmentation Using Bi-LSTM-Based Networks</em>, Mathematics.</p>
+      <p><strong>{RETINAL_PAPER.year}</strong> · <a href={RETINAL_PAPER.url}><em>{RETINAL_PAPER.title}</em></a>, {RETINAL_PAPER.journal}.</p>
       <p><strong>2020</strong> · <em>Perspectives of Patients and Professionals on Information and Education After Myocardial Infarction</em>, JMIR Human Factors.</p>
       <p><strong>2024</strong> · <em>Ace the Technical Interview with AI</em>, practical workshop at Talent Arena / MWC Barcelona.</p>
     </div>
@@ -303,7 +325,7 @@ export default function CvPage(): JSX.Element {
         <CvHeader />
         <CvSection label="Profile" className="cv-profile">
           <p className="cv-summary">
-            Hands-on engineering manager and software engineer with 15+ years building software across AI infrastructure, maritime operations, healthcare, and travel. I lead teams and stay close to architecture, implementation, and delivery: making complex systems easier to understand, more reliable in production, and useful to the people who depend on them.
+            I build execution infrastructure for AI agents — dispatch, routing, state and verification — and lead the team that runs it. Fifteen years building software, still writing code. At Eachlabs I lead a team of 5 engineers and own the execution engine, dispatch, LLM router and AWS platform behind 10M+ executions a month across 700+ models. Earlier work spans maritime operations at 90POE and hospital-facing healthcare products.
           </p>
         </CvSection>
         <CvSection label="Core skills">

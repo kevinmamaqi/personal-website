@@ -5,17 +5,15 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import Page from "./page.tsx";
 import CvPage from "./cv.tsx";
-import PatchQuestPage from "./patchquest.tsx";
 import { html } from "./template.ts";
+import { TITLE, DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const dist = resolve(root, "dist");
 const pub = resolve(root, "public");
 
-const TITLE = "Kevin Mamaqi Kapllani - Engineering Manager · TypeScript, Golang, AI Infrastructure";
-const DESCRIPTION =
-  "Hands-on engineering manager in Barcelona, 15 years building software. TypeScript, Node.js, Golang, Python, React, GraphQL, gRPC, AWS, GCP. AI infrastructure, distributed systems, and team leadership across AI, maritime, and healthcare software.";
+
 const SITE_URL = "https://kevinmamaqi.com/";
 
 const STRUCTURED_DATA = {
@@ -23,7 +21,7 @@ const STRUCTURED_DATA = {
   "@type": "Person",
   name: "Kevin Mamaqi Kapllani",
   url: SITE_URL,
-  jobTitle: "Engineering Manager",
+  jobTitle: "Engineering Manager (Hands-On)",
   address: { "@type": "PostalAddress", addressLocality: "Barcelona", addressCountry: "ES" },
   sameAs: [
     "https://www.linkedin.com/in/kevinmamaqi",
@@ -68,13 +66,6 @@ async function loadCvCss(): Promise<string> {
   return `${base}\n${cv}`;
 }
 
-async function loadPatchquestCss(): Promise<string> {
-  const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
-  const page = await readFile(resolve(here, "styles.css"), "utf8");
-  const patchquest = await readFile(resolve(here, "patchquest-styles.css"), "utf8");
-  return `${base}\n${page}\n${patchquest}`;
-}
-
 async function prepareDist() {
   await rm(dist, { recursive: true, force: true });
   await mkdir(dist, { recursive: true });
@@ -93,7 +84,7 @@ async function main() {
   await prepareDist();
   const css = await loadCss();
   const body = renderToStaticMarkup(<Page />);
-  const doc = html({ title: TITLE, description: DESCRIPTION, body, css, url: SITE_URL, structuredData: STRUCTURED_DATA });
+  const doc = html({ title: TITLE, description: DESCRIPTION, body, css, url: SITE_URL, structuredData: STRUCTURED_DATA, reviewNotes: REVIEW_NOTES });
   await writeFile(resolve(dist, "index.html"), doc, "utf8");
 
   const cvDir = resolve(dist, "cv");
@@ -107,19 +98,6 @@ async function main() {
     url: `${SITE_URL}cv/`,
   });
   await writeFile(resolve(cvDir, "index.html"), cvDoc, "utf8");
-
-  const patchquestDir = resolve(dist, "patchquest");
-  await mkdir(patchquestDir, { recursive: true });
-  const patchquestBody = renderToStaticMarkup(<PatchQuestPage />);
-  const patchquestDoc = html({
-    title: "PatchQuest — Self-Learn Backend Development · Kevin Mamaqi",
-    description:
-      "PatchQuest is a self-learn backend development course for DDD and hexagonal architecture in Node.js, Go, and Bun.",
-    body: patchquestBody,
-    css: await loadPatchquestCss(),
-    url: `${SITE_URL}patchquest/`,
-  });
-  await writeFile(resolve(patchquestDir, "index.html"), patchquestDoc, "utf8");
 
   await copyPublic();
   const t = (performance.now() - t0).toFixed(1);

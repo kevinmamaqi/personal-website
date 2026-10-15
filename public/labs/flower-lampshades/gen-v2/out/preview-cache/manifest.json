@@ -1,0 +1,32 @@
+[
+  {
+    "key": "datura",
+    "id": "470eb05e",
+    "file": "datura-470eb05e.bin",
+    "bytes": 739036
+  },
+  {
+    "key": "camellia",
+    "id": "ac5542c3",
+    "file": "camellia-ac5542c3.bin",
+    "bytes": 757272
+  },
+  {
+    "key": "lily",
+    "id": "71e3c293",
+    "file": "lily-71e3c293.bin",
+    "bytes": 688392
+  },
+  {
+    "key": "morningglory",
+    "id": "97d34405",
+    "file": "morningglory-97d34405.bin",
+    "bytes": 702548
+  },
+  {
+    "key": "poppy",
+    "id": "d7987e36",
+    "file": "poppy-d7987e36.bin",
+    "bytes": 622068
+  }
+]

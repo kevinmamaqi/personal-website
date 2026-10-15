@@ -4,14 +4,13 @@ import { resolve, dirname, extname } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import { html } from "./template.ts";
+import { TITLE, DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const pub = resolve(root, "public");
 
-const TITLE = "Kevin Mamaqi Kapllani - Engineering, Systems, Perception.";
-const DESCRIPTION =
-  "Selected work and notebook of Kevin Mamaqi Kapllani: AI infrastructure, maritime systems, healthcare software, medical imaging, and engineering leadership.";
+
 
 const MIME: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -35,7 +34,7 @@ async function renderPage(): Promise<string> {
   const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
   const page = await readFile(resolve(here, "styles.css"), "utf8");
   const body = renderToStaticMarkup(<Page />);
-  return html({ title: TITLE, description: DESCRIPTION, body, css: `${base}\n${page}` });
+  return html({ title: TITLE, description: DESCRIPTION, body, css: `${base}\n${page}`, reviewNotes: REVIEW_NOTES });
 }
 
 async function renderCvPage(): Promise<string> {

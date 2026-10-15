@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /labs/flowerring/
 
 Sitemap: https://kevinmamaqi.com/sitemap.xml
