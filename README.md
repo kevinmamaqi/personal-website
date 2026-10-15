@@ -2,7 +2,7 @@
 
 The personal site of Kevin Mamaqi Kapllani — a small, statically rendered site for selected work, notes, a printable CV, and LinkedIn contact.
 
-Built with **Bun + React 19 + SSG**. No client-side JavaScript ships to the browser; the page is rendered to HTML at build time and served as a static file.
+Built with **Bun + React 19 + SSG**. Pages are rendered to HTML at build time and served as static files; a small shared script stores each visitor's light/dark theme preference.
 
 ## Requirements
 

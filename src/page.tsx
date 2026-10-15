@@ -1,4 +1,5 @@
 import type { JSX } from "react";
+import { ThemeToggle } from "./theme-toggle.tsx";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/kevinmamaqi";
 const MALT_URL = "https://www.malt.es/profile/kevinmamaqikapllani";
@@ -108,14 +109,24 @@ const PROJECTS: Project[] = [
 
 const NOTES = [
   {
-    title: "PatchQuest — self-learn backend development",
-    source: "Open source · Teaching project",
-    date: "2026-07-18",
-    dateLabel: "18 Jul 2026",
-    href: "/patchquest/",
+    title: "San Francisco Tech Week",
+    source: "Field notes · AI infrastructure",
+    date: "2026-10-15",
+    dateLabel: "15 Oct 2026",
+    href: "/notes/sf-tech-week-2026/",
     external: false,
     summary:
-      "A self-learn backend course for DDD and hexagonal architecture in Node.js, Go, and Bun. Build in your own workspace with source-linked questions and local progress.",
+      "Specialized models, more demanding infrastructure, and a week of conversations in San Francisco about what it takes to ship AI products.",
+  },
+  {
+    title: "Flower lampshades, grown to print",
+    source: "Computational design · 3D printing",
+    date: "2026-08-25",
+    dateLabel: "25 Aug 2026",
+    href: "/notes/flower-lampshades/",
+    external: false,
+    summary:
+      "A deterministic geometry pipeline for five flower shades: differential growth, shell constraints, derived print limits, and validation-gated STL export.",
   },
   {
     title: "An agent-first macOS workbench",
@@ -191,13 +202,22 @@ function Header() {
       <a className="site-name" href="#top" aria-label="Kevin Mamaqi home">
         Kevin Mamaqi
       </a>
-      <nav className="nav" aria-label="Primary">
+      <nav id="site-navigation" className="nav" aria-label="Primary">
         {NAV.map((item) => (
           <a key={item.label} href={item.href}>
             {item.label}
           </a>
         ))}
       </nav>
+      <div className="site-header-actions">
+        <ThemeToggle />
+        <button className="menu-toggle" type="button" data-menu-toggle aria-controls="site-navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <span className="sr-only">Open navigation menu</span>
+        </button>
+      </div>
     </header>
   );
 }
@@ -219,11 +239,11 @@ function Hero() {
         <a className="text-link" href={CV_URL}>
           View CV <I.arrowUpRight />
         </a>
-        <a className="text-link" href="#work">
-          Selected work
-        </a>
         <a className="text-link" href={MALT_URL} target="_blank" rel="noreferrer">
           Malt reviews <I.arrowUpRight />
+        </a>
+        <a className="text-link" href="#work">
+          Selected work
         </a>
       </div>
     </section>
@@ -342,7 +362,7 @@ const METHOD_SCRIPT = `
 (function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var mq = window.matchMedia("(max-width: 640px)");
-  var COLORS = ["#23395B", "#8F5B3E", "#171717"];
+  var COLORS = ["var(--accent)", "var(--warm)", "var(--ink)"];
   var state = null, seg = 0, phase = "rest", start = null;
   function setup(prefix) {
     var paths = [0, 1, 2].map(function (i) { return document.getElementById(prefix + "path-" + i); });
@@ -435,38 +455,38 @@ function Method() {
         >
           <defs>
             <marker id="mAh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto">
-              <path d="M0,0 L8,4 L0,8 z" fill="#8B857A" />
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--soft)" />
             </marker>
           </defs>
           <g fontFamily="Inter, system-ui, sans-serif">
             <g className="m-node" id="m-node-0">
-              <rect x="15" y="18" width="185" height="56" fill="#F7F3EC" stroke="#23395B" strokeWidth="1.3" />
-              <text x="33" y="41" fontSize="10.5" fontWeight="700" fill="#23395B" letterSpacing="1.5">AGENT</text>
-              <text x="33" y="62" fontSize="14" fill="#171717">Proposes the change</text>
+              <rect x="15" y="18" width="185" height="56" fill="var(--paper)" stroke="var(--accent)" strokeWidth="1.3" />
+              <text x="33" y="41" fontSize="10.5" fontWeight="700" fill="var(--accent)" letterSpacing="1.5">AGENT</text>
+              <text x="33" y="62" fontSize="14" fill="var(--ink)">Proposes the change</text>
             </g>
             <g className="m-node" id="m-node-1">
-              <rect x="237" y="18" width="185" height="56" fill="#F7F3EC" stroke="#8F5B3E" strokeWidth="1.3" />
-              <text x="255" y="41" fontSize="10.5" fontWeight="700" fill="#8F5B3E" letterSpacing="1.5">VERIFIER</text>
-              <text x="255" y="62" fontSize="14" fill="#171717">Hunts the failure mode</text>
+              <rect x="237" y="18" width="185" height="56" fill="var(--paper)" stroke="var(--warm)" strokeWidth="1.3" />
+              <text x="255" y="41" fontSize="10.5" fontWeight="700" fill="var(--warm)" letterSpacing="1.5">VERIFIER</text>
+              <text x="255" y="62" fontSize="14" fill="var(--ink)">Hunts the failure mode</text>
             </g>
             <g className="m-node" id="m-node-2">
-              <rect x="459" y="18" width="186" height="56" fill="#F7F3EC" stroke="#171717" strokeWidth="1.3" />
-              <text x="477" y="41" fontSize="10.5" fontWeight="700" fill="#171717" letterSpacing="1.5">HARNESS</text>
-              <text x="477" y="62" fontSize="14" fill="#171717">Encodes it as a check</text>
+              <rect x="459" y="18" width="186" height="56" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1.3" />
+              <text x="477" y="41" fontSize="10.5" fontWeight="700" fill="var(--ink)" letterSpacing="1.5">HARNESS</text>
+              <text x="477" y="62" fontSize="14" fill="var(--ink)">Encodes it as a check</text>
             </g>
           </g>
-          <g fill="none" stroke="#8B857A" strokeWidth="1.4" markerEnd="url(#mAh)">
+          <g fill="none" stroke="var(--soft)" strokeWidth="1.4" markerEnd="url(#mAh)">
             <path id="m-path-0" strokeDasharray="5 6" d="M204 46 H 231" />
             <path id="m-path-1" strokeDasharray="5 6" d="M426 46 H 453" />
             <path id="m-path-2" strokeDasharray="5 6" d="M552 78 v 26 a8 8 0 0 1 -8 8 H 116 a8 8 0 0 1 -8 -8 v -22" />
           </g>
-          <g fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="#5F5B54" stroke="#F7F3EC" strokeWidth="3.5" paintOrder="stroke" strokeLinejoin="round">
+          <g fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="var(--muted)" stroke="var(--paper)" strokeWidth="3.5" paintOrder="stroke" strokeLinejoin="round">
             <text className="m-label" id="m-label-0" x="217" y="36" textAnchor="middle">change</text>
             <text className="m-label" id="m-label-1" x="439" y="36" textAnchor="middle">finding</text>
             <text className="m-label" id="m-label-2" x="330" y="130" textAnchor="middle">a repeatable check</text>
           </g>
-          <circle id="m-trail" r="3" fill="#23395B" opacity="0" />
-          <circle id="m-token" r="5.5" fill="#23395B" stroke="#F7F3EC" strokeWidth="1.4" visibility="hidden" />
+          <circle id="m-trail" r="3" fill="var(--accent)" opacity="0" />
+          <circle id="m-token" r="5.5" fill="var(--accent)" stroke="var(--paper)" strokeWidth="1.4" visibility="hidden" />
         </svg>
         <svg
           className="m-vertical"
@@ -476,38 +496,38 @@ function Method() {
         >
           <defs>
             <marker id="mvAh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5" markerHeight="6.5" orient="auto">
-              <path d="M0,0 L8,4 L0,8 z" fill="#8B857A" />
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--soft)" />
             </marker>
           </defs>
           <g fontFamily="Inter, system-ui, sans-serif">
             <g className="m-node" id="mv-node-0">
-              <rect x="20" y="15" width="240" height="56" fill="#F7F3EC" stroke="#23395B" strokeWidth="1.3" />
-              <text x="38" y="38" fontSize="10.5" fontWeight="700" fill="#23395B" letterSpacing="1.5">AGENT</text>
-              <text x="38" y="59" fontSize="14" fill="#171717">Proposes the change</text>
+              <rect x="20" y="15" width="240" height="56" fill="var(--paper)" stroke="var(--accent)" strokeWidth="1.3" />
+              <text x="38" y="38" fontSize="10.5" fontWeight="700" fill="var(--accent)" letterSpacing="1.5">AGENT</text>
+              <text x="38" y="59" fontSize="14" fill="var(--ink)">Proposes the change</text>
             </g>
             <g className="m-node" id="mv-node-1">
-              <rect x="20" y="125" width="240" height="56" fill="#F7F3EC" stroke="#8F5B3E" strokeWidth="1.3" />
-              <text x="38" y="148" fontSize="10.5" fontWeight="700" fill="#8F5B3E" letterSpacing="1.5">VERIFIER</text>
-              <text x="38" y="169" fontSize="14" fill="#171717">Hunts the failure mode</text>
+              <rect x="20" y="125" width="240" height="56" fill="var(--paper)" stroke="var(--warm)" strokeWidth="1.3" />
+              <text x="38" y="148" fontSize="10.5" fontWeight="700" fill="var(--warm)" letterSpacing="1.5">VERIFIER</text>
+              <text x="38" y="169" fontSize="14" fill="var(--ink)">Hunts the failure mode</text>
             </g>
             <g className="m-node" id="mv-node-2">
-              <rect x="20" y="235" width="240" height="56" fill="#F7F3EC" stroke="#171717" strokeWidth="1.3" />
-              <text x="38" y="258" fontSize="10.5" fontWeight="700" fill="#171717" letterSpacing="1.5">HARNESS</text>
-              <text x="38" y="279" fontSize="14" fill="#171717">Encodes it as a check</text>
+              <rect x="20" y="235" width="240" height="56" fill="var(--paper)" stroke="var(--ink)" strokeWidth="1.3" />
+              <text x="38" y="258" fontSize="10.5" fontWeight="700" fill="var(--ink)" letterSpacing="1.5">HARNESS</text>
+              <text x="38" y="279" fontSize="14" fill="var(--ink)">Encodes it as a check</text>
             </g>
           </g>
-          <g fill="none" stroke="#8B857A" strokeWidth="1.4" markerEnd="url(#mvAh)">
+          <g fill="none" stroke="var(--soft)" strokeWidth="1.4" markerEnd="url(#mvAh)">
             <path id="mv-path-0" strokeDasharray="5 6" d="M140 75 V 118" />
             <path id="mv-path-1" strokeDasharray="5 6" d="M140 185 V 228" />
             <path id="mv-path-2" strokeDasharray="5 6" d="M260 263 h 32 a8 8 0 0 0 8 -8 V 51 a8 8 0 0 0 -8 -8 h -24" />
           </g>
-          <g fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="#5F5B54" stroke="#F7F3EC" strokeWidth="3.5" paintOrder="stroke" strokeLinejoin="round">
+          <g fontFamily="Inter, system-ui, sans-serif" fontSize="11" fill="var(--muted)" stroke="var(--paper)" strokeWidth="3.5" paintOrder="stroke" strokeLinejoin="round">
             <text className="m-label" id="mv-label-0" x="152" y="100">change</text>
             <text className="m-label" id="mv-label-1" x="152" y="210">finding</text>
             <text className="m-label" id="mv-label-2" x="322" y="157" textAnchor="middle" transform="rotate(90 322 157)">a repeatable check</text>
           </g>
-          <circle id="mv-trail" r="3" fill="#23395B" opacity="0" />
-          <circle id="mv-token" r="5.5" fill="#23395B" stroke="#F7F3EC" strokeWidth="1.4" visibility="hidden" />
+          <circle id="mv-trail" r="3" fill="var(--accent)" opacity="0" />
+          <circle id="mv-token" r="5.5" fill="var(--accent)" stroke="var(--paper)" strokeWidth="1.4" visibility="hidden" />
         </svg>
         <figcaption>
           agent · verifier · harness — <a href="/notes/agent-harness-at-eachlabs/">the harness presentation</a> ·{" "}

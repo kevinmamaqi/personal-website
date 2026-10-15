@@ -1,0 +1,112 @@
+[
+  {
+    "key": "datura",
+    "name": "Datura",
+    "use": "floor",
+    "file": "datura.stl",
+    "diameter": 224.3,
+    "height": 225.35546097556124,
+    "grams": 135,
+    "minutes": 757,
+    "maxOverhangDeg": 88.9,
+    "mode": "shell",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "camellia",
+    "name": "Camellia",
+    "use": "floor",
+    "file": "camellia.stl",
+    "diameter": 206.9,
+    "height": 213.68606280266908,
+    "grams": 125,
+    "minutes": 701,
+    "maxOverhangDeg": 74.5,
+    "mode": "shell",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "lily",
+    "name": "Lily",
+    "use": "pendant",
+    "file": "lily.stl",
+    "diameter": 199.5,
+    "height": 214.39985034750177,
+    "grams": 129,
+    "minutes": 722,
+    "maxOverhangDeg": 87.2,
+    "mode": "shell",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "morningglory",
+    "name": "Morning Glory",
+    "use": "table",
+    "file": "morningglory.stl",
+    "diameter": 233.3,
+    "height": 187.98330810829677,
+    "grams": 107,
+    "minutes": 903,
+    "maxOverhangDeg": 82.3,
+    "mode": "shell",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "poppy",
+    "name": "Poppy",
+    "use": "table",
+    "file": "poppy.stl",
+    "diameter": 225.2,
+    "height": 184.135335240205,
+    "grams": 81,
+    "minutes": 452,
+    "maxOverhangDeg": 74,
+    "mode": "shell",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "collar",
+    "name": "collar",
+    "use": "hardware",
+    "file": "collar.stl",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "ring",
+    "name": "ring",
+    "use": "hardware",
+    "file": "ring.stl",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "stem",
+    "name": "stem",
+    "use": "hardware",
+    "file": "stem.stl",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "base",
+    "name": "base",
+    "use": "hardware",
+    "file": "base.stl",
+    "printable": true,
+    "issues": []
+  },
+  {
+    "key": "coupon",
+    "name": "coupon",
+    "use": "hardware",
+    "file": "coupon.stl",
+    "printable": true,
+    "issues": []
+  }
+]

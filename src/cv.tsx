@@ -1,4 +1,5 @@
 import type { JSX } from "react";
+import { ThemeToggle } from "./theme-toggle.tsx";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/kevinmamaqi";
 const MALT_URL = "https://www.malt.es/profile/kevinmamaqikapllani";
@@ -184,13 +185,22 @@ function CvSiteHeader() {
   return (
     <header className="site-header cv-site-header">
       <a className="site-name" href="/" aria-label="Kevin Mamaqi home">Kevin Mamaqi</a>
-      <nav className="nav" aria-label="Primary">
+      <nav id="site-navigation" className="nav" aria-label="Primary">
         {NAV.map((item) => (
           <a key={item.label} href={item.href} aria-current={item.href === "/cv/" ? "page" : undefined}>
             {item.label}
           </a>
         ))}
       </nav>
+      <div className="site-header-actions">
+        <ThemeToggle />
+        <button className="menu-toggle" type="button" data-menu-toggle aria-controls="site-navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <span className="sr-only">Open navigation menu</span>
+        </button>
+      </div>
     </header>
   );
 }
