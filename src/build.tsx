@@ -6,15 +6,14 @@ import { fileURLToPath } from "node:url";
 import Page from "./page.tsx";
 import CvPage from "./cv.tsx";
 import { html } from "./template.ts";
+import { TITLE, DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const dist = resolve(root, "dist");
 const pub = resolve(root, "public");
 
-const TITLE = "Kevin Mamaqi Kapllani - Engineering Manager · TypeScript, Golang, AI Infrastructure";
-const DESCRIPTION =
-  "Hands-on engineering manager in Barcelona, 15 years building software. TypeScript, Node.js, Golang, Python, React, GraphQL, gRPC, AWS, GCP. AI infrastructure, distributed systems, and team leadership across AI, maritime, and healthcare software.";
+
 const SITE_URL = "https://kevinmamaqi.com/";
 
 const STRUCTURED_DATA = {
@@ -22,7 +21,7 @@ const STRUCTURED_DATA = {
   "@type": "Person",
   name: "Kevin Mamaqi Kapllani",
   url: SITE_URL,
-  jobTitle: "Engineering Manager",
+  jobTitle: "Engineering Manager (Hands-On)",
   address: { "@type": "PostalAddress", addressLocality: "Barcelona", addressCountry: "ES" },
   sameAs: [
     "https://www.linkedin.com/in/kevinmamaqi",
@@ -85,7 +84,7 @@ async function main() {
   await prepareDist();
   const css = await loadCss();
   const body = renderToStaticMarkup(<Page />);
-  const doc = html({ title: TITLE, description: DESCRIPTION, body, css, url: SITE_URL, structuredData: STRUCTURED_DATA });
+  const doc = html({ title: TITLE, description: DESCRIPTION, body, css, url: SITE_URL, structuredData: STRUCTURED_DATA, reviewNotes: REVIEW_NOTES });
   await writeFile(resolve(dist, "index.html"), doc, "utf8");
 
   const cvDir = resolve(dist, "cv");

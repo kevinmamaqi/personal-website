@@ -5,13 +5,15 @@ interface TemplateInput {
   css: string;
   url?: string;
   structuredData?: object;
+  reviewNotes?: string[];
 }
 
-export function html({ title, description, body, css, url = "https://kevinmamaqi.com/", structuredData }: TemplateInput): string {
+export function html({ title, description, body, css, url = "https://kevinmamaqi.com/", structuredData, reviewNotes = [] }: TemplateInput): string {
   const jsonLd = structuredData
     ? `<script type="application/ld+json">${JSON.stringify(structuredData).replaceAll("</", "<\\/")}</script>\n`
     : "";
-  const imageUrl = new URL("/avatar.svg", url).toString();
+  const imageUrl = new URL("/social-card.png", url).toString();
+  const reviewComments = reviewNotes.map((note) => `<!-- VERIFY: ${note.replaceAll("--", "—")} -->`).join("\n");
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -32,13 +34,18 @@ export function html({ title, description, body, css, url = "https://kevinmamaqi
 <meta property="og:type" content="website" />
 <meta property="og:url" content="${escape(url)}" />
 <meta property="og:image" content="${escape(imageUrl)}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Kevin Mamaqi Kapllani — execution infrastructure for AI agents." />
 <meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="Kevin Mamaqi Kapllani" />
 
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="${escape(title)}" />
 <meta name="twitter:description" content="${escape(description)}" />
 <meta name="twitter:image" content="${escape(imageUrl)}" />
+<meta name="twitter:image:alt" content="Kevin Mamaqi Kapllani — execution infrastructure for AI agents." />
+${reviewComments}
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
