@@ -13,7 +13,7 @@ ul, ol {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
+  grid-template-columns: minmax(0, 1fr) clamp(260px, calc(25vw - 60px), 300px);
   align-items: start;
   gap: 32px;
   padding: 72px 0 60px;
@@ -22,7 +22,7 @@ ul, ol {
 .hero-intro { grid-area: 1 / 1; min-width: 0; }
 .hero-photo {
   grid-area: 1 / 2;
-  width: 260px;
+  width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 51% 42%;
@@ -206,8 +206,8 @@ ul, ol {
   display: grid;
   align-content: start;
   gap: 10px;
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--ink);
+  font-size: 15px;
 }
 
 .work-points li {
