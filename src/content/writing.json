@@ -1,0 +1,65 @@
+[
+  {
+    "title": "San Francisco Tech Week",
+    "source": "Field notes · Agent infrastructure",
+    "category": "technical",
+    "date": "2026-10-15",
+    "href": "/notes/sf-tech-week-2026/",
+    "external": false,
+    "summary": "Specialized models, more demanding infrastructure, and a week of conversations in San Francisco about what it takes to ship AI products."
+  },
+  {
+    "title": "An agent-first macOS workbench",
+    "source": "Open source · Agent tooling",
+    "category": "technical",
+    "date": "2026-07-13",
+    "href": "https://github.com/kevinmamaqi/agent-first-workbench",
+    "external": true,
+    "summary": "The sanitized macOS setup I use for agent-first development: cmux and Ghostty for visible agent work, terminal-native review and navigation tools, deterministic output for agents, and a safe installer with privacy checks."
+  },
+  {
+    "title": "Agent Harness at each::labs",
+    "source": "Talk · Agent harness",
+    "category": "technical",
+    "date": "2026-07-13",
+    "href": "/notes/agent-harness-at-eachlabs/",
+    "external": false,
+    "summary": "How I use ergonomics, fast tools, specifications, sequential implementation, independent verification, and measurement to improve daily agent-assisted engineering work."
+  },
+  {
+    "title": "We timed our coding agents",
+    "source": "Measurement · Agent harness",
+    "category": "technical",
+    "date": "2026-06-30",
+    "href": "https://www.linkedin.com/pulse/we-timed-our-coding-agents-92-work-happened-before-mamaqi-kapllani-f3icf/",
+    "external": true,
+    "summary": "A measured look at where coding-agent work actually happens: framing, verification, and review before the implementation step."
+  },
+  {
+    "title": "Making fifty AI providers behave like one product",
+    "source": "Execution infrastructure · Routing",
+    "category": "technical",
+    "date": "2026-06-15",
+    "href": "https://www.linkedin.com/pulse/making-fifty-ai-providers-behave-like-one-product-mamaqi-kapllani-n5jpe/",
+    "external": true,
+    "summary": "A practical note on reducing many AI providers into one product surface without hiding the operational differences that matter."
+  },
+  {
+    "title": "Ace the Technical Interview with AI",
+    "source": "Talk · MWC Barcelona 2024",
+    "category": "technical",
+    "date": "2024-02-26",
+    "href": "/notes/ace-technical-interview-mwc-2024/",
+    "external": false,
+    "summary": "A practical workshop from Talent Arena on using language models to prepare for technical interviews, practise with feedback, understand code, and verify the result."
+  },
+  {
+    "title": "Flower lampshades, grown to print",
+    "source": "Computational design · 3D printing",
+    "category": "off-topic",
+    "date": "2026-08-25",
+    "href": "/notes/flower-lampshades/",
+    "external": false,
+    "summary": "A deterministic geometry pipeline for five flower shades: differential growth, shell constraints, derived print limits, and validation-gated STL export."
+  }
+]
