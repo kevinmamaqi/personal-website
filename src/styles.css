@@ -51,6 +51,7 @@ ul, ol {
   margin-top: 18px;
   font-size: 56px;
   line-height: 1.02;
+  text-wrap: balance;
 }
 
 .hero h1 em {
