@@ -45,15 +45,6 @@
     "summary": "A practical note on reducing many AI providers into one product surface without hiding the operational differences that matter."
   },
   {
-    "title": "Ace the Technical Interview with AI",
-    "source": "Talk · MWC Barcelona 2024",
-    "category": "technical",
-    "date": "2024-02-26",
-    "href": "/notes/ace-technical-interview-mwc-2024/",
-    "external": false,
-    "summary": "A practical workshop from Talent Arena on using language models to prepare for technical interviews, practise with feedback, understand code, and verify the result."
-  },
-  {
     "title": "Flower lampshades, grown to print",
     "source": "Computational design · 3D printing",
     "category": "off-topic",

@@ -1,6 +1,7 @@
 // Public copy supplied in Kevin's 15 October 2026 implementation brief.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
-// Public operating figures intentionally use generic magnitudes, per Kevin.
+// Public scale uses Kevin's 10M+ executions/month and 700+ models figures.
+// Keep internal migration and test measurements qualitative.
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/kevinmamaqi",
   github: "https://github.com/kevinmamaqi",
@@ -35,8 +36,10 @@ export const RETINAL_PAPER = {
 export const EACHLABS = {
   role: "Engineering Manager (Hands-On)",
   dates: "Nov 2025 – present",
-  earlierRole: "Founding backend engineer (contract / part-time)",
+  earlierRole: "Part-time Tech Lead (contract)",
   earlierDates: "Mar 2025 – Nov 2025",
+  earlierSummary: "built the new backend foundation",
+  earlierDescription: "Led the design and build of Eachlabs' new backend foundation while still at 90POE: service architecture, AWS CDK platform, CI, and the first production services the current platform runs on.",
 };
 
 export const NINETY_POE = {
@@ -50,14 +53,14 @@ export const PROJECTS = [
     tag: "AI infrastructure",
     role: EACHLABS.role,
     period: EACHLABS.dates,
-    earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates}`,
-    summary: "Lead a small engineering team building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Wrote the first commit of the backend platform in March 2025 and still ship daily.",
+    earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
+    summary: "Lead a team of 5 engineers building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Started part-time in March 2025 as tech lead for the new backend foundation, joined full-time in November 2025, and still ship daily.",
     points: [
-      "Execution engine, dispatch and LLM router handling millions of executions a month, with peaks of thousands per minute, across hundreds of models and dozens of providers",
+      "Execution engine, dispatch and LLM router handling 10M+ executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
       "Migrated a large execution store to Aurora through a controlled production cutover, preserving data integrity while improving reliability and throughput",
       "Resilience layer — bulkheads, circuit breakers, graceful drain and automatic multi-provider fallback to recover from provider and edge failures",
-      "Built backend services and the AWS CDK platform, with production alerts and dashboards managed as code",
+      "Built the new backend foundation: backend services and the AWS CDK platform, with production alerts and dashboards managed as code",
       "Spec → execute → verify delivery system with reusable validation contracts and production Slack agents; increased team delivery throughput and deployment frequency",
     ],
     stack: "Go · TypeScript · gRPC · GraphQL · PostgreSQL/Aurora · Redis · SQS · AWS CDK · Grafana · OpenTelemetry",

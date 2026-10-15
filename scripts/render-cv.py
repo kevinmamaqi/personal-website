@@ -23,7 +23,7 @@ HTML(string=source,base_url=str(root/'dist')).write_pdf(output,stylesheets=[font
 doc=fitz.open(output)
 text=' '.join(' '.join(page.get_text().split()) for page in doc)
 assert 'Senior Software Engineer / Team Lead' in text
-assert 'Founding backend engineer (contract / part-time)' in text
+assert 'Part-time Tech Lead (contract)' in text
 assert 'Nov 2025' in text and 'Dec 2022' in text
 if args.preview_dir:
     args.preview_dir.mkdir(parents=True,exist_ok=True)

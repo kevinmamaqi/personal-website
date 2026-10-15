@@ -40,7 +40,7 @@ const EXPERIENCE: Entry[] = [
     location: "Remote · Barcelona",
     focus: "AI execution infrastructure",
     stack: "Go · TypeScript · AWS",
-    bullets: ["Wrote the first commit of the backend platform in March 2025, building the execution engine, dispatch and model routing before moving into the Engineering Manager role."],
+    bullets: [EACHLABS.earlierDescription],
   },
   {
     company: "Ninety Percent of Everything (90POE)",
@@ -325,7 +325,7 @@ export default function CvPage(): JSX.Element {
         <CvHeader />
         <CvSection label="Profile" className="cv-profile">
           <p className="cv-summary">
-            I build execution infrastructure for AI agents — dispatch, routing, state and verification — and lead the team that runs it. Over a decade building software, still writing code. At Eachlabs I lead a small engineering team and own the execution engine, dispatch, LLM router and AWS platform behind millions of executions a month. Earlier work spans maritime operations at 90POE and hospital-facing healthcare products.
+            I build execution infrastructure for AI agents — dispatch, routing, state and verification — and lead the team that runs it. Fifteen years building software, still writing code. At Eachlabs I lead a team of 5 engineers and own the execution engine, dispatch, LLM router and AWS platform behind 10M+ executions a month across 700+ models. Earlier work spans maritime operations at 90POE and hospital-facing healthcare products.
           </p>
         </CvSection>
         <CvSection label="Core skills">
