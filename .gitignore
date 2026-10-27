@@ -23,3 +23,8 @@ GITHUB_CLEANUP_REVIEW.md
 /private/flowerring/
 .dev.vars
 .dev.vars.*
+
+# Generation bar lab: built from a private prototype; page, API function and its core stay out of the public repository
+/public/labs/generation-bar/
+/functions/labs/generation-bar/
+/private/generation-bar/
