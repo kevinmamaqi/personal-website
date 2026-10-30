@@ -54,11 +54,6 @@ ul, ol {
   text-wrap: balance;
 }
 
-.hero h1 em {
-  font-style: italic;
-  color: var(--warm);
-}
-
 .hero-motif,
 .section-motif {
   display: flex;

@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { ThemeToggle } from "./theme-toggle.tsx";
-import { LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
+import { HEADLINE, LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
 import NOTES from "./content/writing.json";
 
 const SKILLS = [
@@ -72,14 +72,13 @@ function Hero() {
     <section id="top" className="hero">
       <img className="hero-photo" src="/notes/ace-technical-interview-mwc-2024/images/kevin-speaking-to-audience.webp" width="1800" height="1200" alt="Kevin Mamaqi speaking at MWC Barcelona 2024" fetchPriority="high" />
       <div className="hero-intro">
-        <p className="eyebrow">Tech Lead &amp; Engineering Manager · Execution infrastructure for AI agents · Barcelona</p>
-        <h1>I build the infrastructure that runs AI agents <em>reliably at scale</em> — and lead the team that runs it.</h1>
+        <p className="eyebrow">Engineering Manager &amp; Tech Lead · Barcelona</p>
+        <h1>{HEADLINE}</h1>
         <div className="hero-motif" aria-hidden="true"><span /><span /><span /></div>
-        <p className="hero-copy">Fifteen years building software, still writing code. At Eachlabs I own the execution engine, dispatch and LLM router behind a platform running 10M+ executions a month across 700+ models, and I lead the engineering team. The problems are the ones every agent platform hits: exactly-once dispatch, multi-provider failure, state at scale, and verifying what ships. Before that: maritime operations software at 90POE, hospital-facing healthcare products before that.</p>
+        <p className="hero-copy">At Eachlabs I run a team of five building the APIs behind 700+ AI models. Before that I led teams in maritime and healthcare software.</p>
         <div className="hero-actions">
-          <a className="text-link" href={LINKS.cv}>View CV <Arrow /></a>
-          <a className="text-link" href="#work">Selected work</a>
-          <a className="text-link" href="#notes">Writing</a>
+          <a className="text-link" href={LINKS.cv}>Read my CV <Arrow /></a>
+          <a className="text-link" href="#contact">Get in touch</a>
         </div>
       </div>
     </section>

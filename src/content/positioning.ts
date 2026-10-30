@@ -1,4 +1,6 @@
-// Public copy supplied in Kevin's 15 October 2026 implementation brief.
+// Hero, work lines, method and contact copy follow Kevin's 30 October 2026
+// simplification brief, which supersedes the 15 October brief: plain first
+// person, no jargon above the fold, at most two public numbers.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
 // Public scale uses Kevin's approved monthly execution and catalog figures.
 // Keep internal migration and test measurements qualitative.
@@ -18,9 +20,9 @@ export const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const HEADLINE = "I build the infrastructure that runs AI agents reliably at scale — and lead the team that runs it.";
-export const DESCRIPTION = "Hands-on Tech Lead and Engineering Manager building execution infrastructure for AI agents: dispatch, routing, state and verification. Barcelona, remote-friendly, US-overlap.";
-export const TITLE = "Kevin Mamaqi Kapllani — Tech Lead & Engineering Manager · AI Agent Infrastructure";
+export const HEADLINE = "I lead engineering teams and still write code.";
+export const DESCRIPTION = "I lead engineering teams and still write code. At Eachlabs I run a team of five building the APIs behind 700+ AI models.";
+export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager & Tech Lead · Barcelona";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",
