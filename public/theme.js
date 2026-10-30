@@ -69,14 +69,36 @@
     });
   };
 
+  const attachDisclosures = () => {
+    document.querySelectorAll("[data-disclosure-toggle]").forEach((control) => {
+      control.addEventListener("click", () => {
+        control.setAttribute("aria-expanded", String(control.getAttribute("aria-expanded") !== "true"));
+      });
+    });
+
+    // A link such as /#skills can point inside a collapsed panel: open it
+    // without the animation so the browser can scroll to the target.
+    const target = window.location.hash ? document.getElementById(decodeURIComponent(window.location.hash.slice(1))) : null;
+    const panel = target?.closest(".disclosure-panel");
+    const control = panel ? document.querySelector(`[aria-controls="${panel.id}"]`) : null;
+    if (!target || !panel || !control) return;
+    panel.style.transition = "none";
+    control.setAttribute("aria-expanded", "true");
+    void panel.offsetHeight;
+    panel.style.transition = "";
+    target.scrollIntoView();
+  };
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       attachControls();
       attachMenus();
+      attachDisclosures();
     }, { once: true });
   } else {
     attachControls();
     attachMenus();
+    attachDisclosures();
   }
 
   media?.addEventListener?.("change", () => {
