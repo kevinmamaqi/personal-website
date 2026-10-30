@@ -1,6 +1,7 @@
-// Hero, work lines, method and contact copy follow Kevin's 30 October 2026
+// Work lines, method and contact copy follow Kevin's 30 October 2026
 // simplification brief, which supersedes the 15 October brief: plain first
-// person, no jargon above the fold, at most two public numbers.
+// person, no jargon above the fold, at most two public numbers. Kevin then
+// asked for a hero that introduces him first and his roles second.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
 // Public scale uses Kevin's approved monthly execution and catalog figures.
 // Keep internal migration and test measurements qualitative.
@@ -19,9 +20,9 @@ export const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const HEADLINE = "I lead engineering teams and still write code.";
-export const DESCRIPTION = "I lead engineering teams and still write code. At Eachlabs I run a team of five building the APIs behind 700+ AI models.";
-export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager & Tech Lead · Barcelona";
+export const HEADLINE = "Hi, I’m Kevin. I write software and lead the teams that build it.";
+export const DESCRIPTION = "Hi, I’m Kevin. I write software and lead the teams that build it. These days I’m at Eachlabs, where we build the APIs behind 700+ AI models.";
+export const TITLE = "Kevin Mamaqi Kapllani — software engineer in Barcelona";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",

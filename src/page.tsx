@@ -82,10 +82,10 @@ function Hero() {
     <section id="top" className="hero">
       <img className="hero-photo" src="/notes/ace-technical-interview-mwc-2024/images/kevin-speaking-to-audience.webp" width="1800" height="1200" alt="Kevin Mamaqi speaking at MWC Barcelona 2024" fetchPriority="high" />
       <div className="hero-intro">
-        <p className="eyebrow">Engineering Manager &amp; Tech Lead · Barcelona</p>
+        <p className="eyebrow">Software engineer · Barcelona</p>
         <h1>{HEADLINE}</h1>
         <div className="hero-motif" aria-hidden="true"><span /><span /><span /></div>
-        <p className="hero-copy">At Eachlabs I run a team of five building the APIs behind 700+ AI models. Before that I led teams in maritime and healthcare software.</p>
+        <p className="hero-copy">These days I’m at Eachlabs, where we build the APIs behind 700+ AI models. I manage a team of five, own our tech stack, and still write code every day. Before that I led teams building maritime and healthcare software.</p>
         <div className="hero-actions">
           <a className="text-link" href={LINKS.cv}>Read my CV <Arrow /></a>
           <a className="text-link" href="#contact">Get in touch</a>
