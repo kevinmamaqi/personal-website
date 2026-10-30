@@ -97,6 +97,7 @@ ul, ol {
   text-decoration: underline;
   text-decoration-color: var(--line);
   text-underline-offset: 4px;
+  white-space: nowrap;
   transition: text-decoration-color 0.2s ease;
 }
 

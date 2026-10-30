@@ -4,7 +4,8 @@
 // asked for a hero that opens with his role and introduces him in his own
 // voice, tied to the harness and inference themes in his SF Tech Week note.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
-// Public scale uses Kevin's approved monthly execution and catalog figures.
+// Public scale uses Kevin's approved monthly execution and catalog figures
+// (catalog updated to 800+ models on 30 October 2026).
 // Keep internal migration and test measurements qualitative.
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/kevinmamaqi",
@@ -22,8 +23,8 @@ export const NAV = [
 ];
 
 export const HEADLINE = "Hi, I’m Kevin. I work on the engineering around AI models.";
-export const DESCRIPTION = "Hi, I’m Kevin. I work on the engineering around AI models: engineering manager at Eachlabs, where my team builds the APIs behind 700+ AI models.";
-export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager & Tech Lead · Barcelona";
+export const DESCRIPTION = "Hi, I’m Kevin. I work on the engineering around AI models: engineering manager at Eachlabs, where my team builds the APIs behind 800+ AI models.";
+export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager / Tech Lead · Barcelona";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",
@@ -59,7 +60,7 @@ export const PROJECTS = [
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
     summary: "I lead a team of five and own the systems that run 10M+ AI jobs a month.",
     points: [
-      "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
+      "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 800+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
       "Migrated a large execution store to Aurora through a controlled production cutover, preserving data integrity while improving reliability and throughput",
       "Resilience layer — bulkheads, circuit breakers, graceful drain and automatic multi-provider fallback to recover from provider and edge failures",

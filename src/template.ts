@@ -36,7 +36,7 @@ export function html({ title, description, body, css, url = "https://kevinmamaqi
 <meta property="og:image" content="${escape(imageUrl)}" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Kevin Mamaqi Kapllani — Engineering Manager &amp; Tech Lead." />
+<meta property="og:image:alt" content="Kevin Mamaqi Kapllani — Engineering Manager / Tech Lead." />
 <meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="Kevin Mamaqi Kapllani" />
 
@@ -44,7 +44,7 @@ export function html({ title, description, body, css, url = "https://kevinmamaqi
 <meta name="twitter:title" content="${escape(title)}" />
 <meta name="twitter:description" content="${escape(description)}" />
 <meta name="twitter:image" content="${escape(imageUrl)}" />
-<meta name="twitter:image:alt" content="Kevin Mamaqi Kapllani — Engineering Manager &amp; Tech Lead." />
+<meta name="twitter:image:alt" content="Kevin Mamaqi Kapllani — Engineering Manager / Tech Lead." />
 ${reviewComments}
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
