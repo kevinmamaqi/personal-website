@@ -321,15 +321,80 @@ ul, ol {
 }
 
 .method-copy { max-width: 760px; font-size: 18px; }
-.method-links, .section-more { margin-top: 18px; font-size: 14px; }
-.method-links a, .section-more a { text-decoration: underline; text-underline-offset: 4px; }
-.more-intro { padding: 72px 0 56px; }
-.more-intro h1 { margin-top: 18px; font-size: 56px; line-height: 1.02; }
+.method-links { margin-top: 18px; font-size: 14px; }
+.method-links a { text-decoration: underline; text-underline-offset: 4px; }
 .method-links svg, .note-syndication svg { display: inline-block; vertical-align: middle; width: 14px; height: 14px; }
 .writing-label { margin-bottom: 18px; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 650; text-transform: uppercase; }
 .writing-group + .writing-group { margin-top: 32px; }
 .note-item > svg { grid-column: 3; grid-row: 1; }
 .note-syndication { display: inline-flex; gap: 8px; margin: 14px 0 18px 192px; color: var(--muted); font-size: 13px; text-decoration: underline; }
+
+/* Disclosure: the panel's grid row eases from 0fr to 1fr while its
+   content fades in, and the plus turns into a minus. */
+.disclosure { margin-top: 18px; }
+
+.disclosure-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.disclosure-toggle:hover { color: var(--ink); }
+
+.disclosure-icon { position: relative; width: 10px; height: 10px; color: var(--accent); }
+.disclosure-icon::before,
+.disclosure-icon::after {
+  content: "";
+  position: absolute;
+  top: 4.25px;
+  left: 0;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.disclosure-icon::after { transform: rotate(90deg); }
+.disclosure-toggle[aria-expanded="true"] .disclosure-icon::after { transform: rotate(0deg); }
+
+.disclosure-panel { display: grid; grid-template-rows: 1fr; }
+.disclosure-inner { min-height: 0; overflow: hidden; }
+.disclosure-inner > :first-child { margin-top: 18px; }
+.disclosure-inner > * + * { margin-top: 32px; }
+
+html[data-js] .disclosure-panel {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0s linear 0.5s;
+}
+
+html[data-js] .disclosure-toggle[aria-expanded="true"] + .disclosure-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease 0.1s, visibility 0s;
+}
+
+html:not([data-js]) .disclosure-toggle { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure-icon::before,
+  .disclosure-icon::after,
+  html[data-js] .disclosure-panel,
+  html[data-js] .disclosure-toggle[aria-expanded="true"] + .disclosure-panel {
+    transition: none;
+  }
+}
 
 .section-motif {
   margin: -10px 0 26px 192px;
@@ -379,12 +444,9 @@ ul, ol {
   .hero-photo { grid-area: auto; width: 200px; margin-top: 0; }
   .note-syndication { margin-left: 0; }
 
-  .hero h1,
-  .more-intro h1 {
+  .hero h1 {
     font-size: 46px;
   }
-
-  .more-intro { padding: 60px 0 42px; }
 
   .hero-copy {
     font-size: 17px;

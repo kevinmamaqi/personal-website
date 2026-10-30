@@ -9,14 +9,12 @@ export const LINKS = {
   github: "https://github.com/kevinmamaqi",
   malt: "https://www.malt.es/profile/kevinmamaqikapllani",
   cv: "/cv/",
-  more: "/more/",
 };
 
 export const NAV = [
   { label: "Work", href: "#work" },
   { label: "Method", href: "#method" },
   { label: "Writing", href: "#notes" },
-  { label: "More", href: LINKS.more },
   { label: "CV", href: LINKS.cv },
   { label: "Contact", href: "#contact" },
 ];
@@ -24,8 +22,6 @@ export const NAV = [
 export const HEADLINE = "I lead engineering teams and still write code.";
 export const DESCRIPTION = "I lead engineering teams and still write code. At Eachlabs I run a team of five building the APIs behind 700+ AI models.";
 export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager & Tech Lead · Barcelona";
-export const MORE_TITLE = "Writing, talks and skills — Kevin Mamaqi Kapllani";
-export const MORE_DESCRIPTION = "All of Kevin Mamaqi Kapllani's writing, plus talks, papers and skills.";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",
