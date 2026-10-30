@@ -85,7 +85,7 @@ function Hero() {
         <p className="eyebrow">Engineering Manager / Tech Lead · Barcelona</p>
         <h1>{HEADLINE}</h1>
         <div className="hero-motif" aria-hidden="true"><span /><span /><span /></div>
-        <p className="hero-copy">I’m an engineering manager at Eachlabs, where my team builds the APIs behind 800+ AI models, the MCP server, and the interface for agents and humans alike. I’ve been leading teams for over five years and still write code every day, including the harness our coding agents work in. Lately I’m most interested in inference, model routing and specialized models, the themes that kept coming up at <a href="/notes/sf-tech-week-2026/">SF Tech Week</a>.</p>
+        <p className="hero-copy">I’m an engineering manager at Eachlabs, where my team builds the APIs, the MCP server, and the interface for agents and humans alike. I’ve been leading teams for over five years and still write code every day, including the harness our coding agents work in. Lately I’m most interested in inference, model routing and specialized models, the themes that kept coming up at <a href="/notes/sf-tech-week-2026/">SF Tech Week</a>.</p>
         <div className="hero-actions">
           <a className="text-link" href={LINKS.cv}>Read my CV <Arrow /></a>
           <a className="text-link" href="#contact">Get in touch</a>

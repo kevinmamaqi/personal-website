@@ -22,8 +22,8 @@ export const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const HEADLINE = "Hi, I’m Kevin. I work on the engineering around AI models.";
-export const DESCRIPTION = "Hi, I’m Kevin. I work on the engineering around AI models: engineering manager at Eachlabs, where my team builds the APIs behind 800+ AI models.";
+export const HEADLINE = "Hi, I’m Kevin. I make 800+ AI models behave like one product.";
+export const DESCRIPTION = "Hi, I’m Kevin. I make 800+ AI models behave like one product: engineering manager at Eachlabs, where my team builds the APIs, the MCP server and the interface for agents and humans alike.";
 export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager / Tech Lead · Barcelona";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
