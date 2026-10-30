@@ -325,7 +325,7 @@ export default function CvPage(): JSX.Element {
         <CvHeader />
         <CvSection label="Profile" className="cv-profile">
           <p className="cv-summary">
-            I build execution infrastructure for AI agents — dispatch, routing, state and verification — and lead the team that runs it. Fifteen years building software, still writing code. At Eachlabs I lead a team of 5 engineers and own the execution engine, dispatch, LLM router and AWS platform behind 10M+ executions a month across 800+ models. Earlier work spans maritime operations at 90POE and hospital-facing healthcare products.
+            I make 800+ AI models behave like one product. At Eachlabs I lead a team of five engineers building the APIs, the MCP server and the interface for agents and humans alike, and I own the systems that run millions of AI jobs a month. I’ve been building software for fifteen years and leading teams for over five, and I still write code every day, including the harness our coding agents work in. Earlier I led a cross-functional team building vessel-planning software at 90POE, and the front-end of hospital-facing healthcare products at Robbie AI.
           </p>
         </CvSection>
         <CvSection label="Core skills">
