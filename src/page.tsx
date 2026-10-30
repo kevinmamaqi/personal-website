@@ -1,6 +1,6 @@
-import type { JSX } from "react";
+import type { JSX, ReactNode } from "react";
 import { ThemeToggle } from "./theme-toggle.tsx";
-import { LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
+import { HEADLINE, LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
 import NOTES from "./content/writing.json";
 
 const SKILLS = [
@@ -49,6 +49,16 @@ function SectionHead({ label, title }: { label: string; title: string }) {
   return <><div className="section-head"><p className="eyebrow">{label}</p><h2>{title}</h2></div><Motif /></>;
 }
 
+// Collapsed until theme.js runs; without JavaScript the panel simply stays open.
+function Disclosure({ id, label, children }: { id: string; label: string; children: ReactNode }) {
+  return (
+    <div className="disclosure">
+      <button className="disclosure-toggle" type="button" data-disclosure-toggle aria-expanded="false" aria-controls={id}><span className="disclosure-icon" aria-hidden="true" />{label}</button>
+      <div className="disclosure-panel" id={id}><div className="disclosure-inner">{children}</div></div>
+    </div>
+  );
+}
+
 function Header() {
   return (
     <header className="site-header">
@@ -72,14 +82,13 @@ function Hero() {
     <section id="top" className="hero">
       <img className="hero-photo" src="/notes/ace-technical-interview-mwc-2024/images/kevin-speaking-to-audience.webp" width="1800" height="1200" alt="Kevin Mamaqi speaking at MWC Barcelona 2024" fetchPriority="high" />
       <div className="hero-intro">
-        <p className="eyebrow">Tech Lead &amp; Engineering Manager · Execution infrastructure for AI agents · Barcelona</p>
-        <h1>I build the infrastructure that runs AI agents <em>reliably at scale</em> — and lead the team that runs it.</h1>
+        <p className="eyebrow">Engineering Manager / Tech Lead · Barcelona</p>
+        <h1>{HEADLINE}</h1>
         <div className="hero-motif" aria-hidden="true"><span /><span /><span /></div>
-        <p className="hero-copy">Fifteen years building software, still writing code. At Eachlabs I own the execution engine, dispatch and LLM router behind a platform running 10M+ executions a month across 700+ models, and I lead the engineering team. The problems are the ones every agent platform hits: exactly-once dispatch, multi-provider failure, state at scale, and verifying what ships. Before that: maritime operations software at 90POE, hospital-facing healthcare products before that.</p>
+        <p className="hero-copy">I’m an engineering manager at Eachlabs, where my team builds the APIs, the MCP server, and the interface for agents and humans alike. I’ve been leading teams for over five years and still write code every day, including the harness our coding agents work in. Lately I’m most interested in inference, model routing and specialized models, the themes that kept coming up at <a href="/notes/sf-tech-week-2026/">SF Tech Week</a>.</p>
         <div className="hero-actions">
-          <a className="text-link" href={LINKS.cv}>View CV <Arrow /></a>
-          <a className="text-link" href="#work">Selected work</a>
-          <a className="text-link" href="#notes">Writing</a>
+          <a className="text-link" href={LINKS.cv}>Read my CV <Arrow /></a>
+          <a className="text-link" href="#contact">Get in touch</a>
         </div>
       </div>
     </section>
@@ -100,9 +109,11 @@ function Work() {
               <p className="work-role">{project.role} · {project.period}</p>
               {"earlier" in project ? <p className="work-earlier">{project.earlier}</p> : null}
               <p className="work-summary">{project.summary}</p>
-              {"stack" in project ? <p className="work-stack">{project.stack}</p> : null}
+              <Disclosure id={`${project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-details`} label="Details">
+                <ul className="work-points">{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                {"stack" in project ? <p className="work-stack">{project.stack}</p> : null}
+              </Disclosure>
             </div>
-            <ul className="work-points">{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
           </article>
         ))}
       </div>
@@ -111,20 +122,10 @@ function Work() {
 }
 
 function Method() {
-  const steps = [
-    ["AGENT", "proposes the change", "→", "change"],
-    ["VERIFIER", "hunts the failure mode", "→", "finding"],
-    ["HARNESS", "encodes it as a check", "↺", "a repeatable check"],
-  ];
   return (
     <section id="method" className="section">
-      <SectionHead label="Method" title="How I work with AI" />
-      <p className="method-copy">The same loop runs the platform and the team. In the platform: an executor dispatches a step, a verifier checks the outcome (exactly-once, idempotent retry, fallback), and the result is committed before anything is billed. In the team: an agent proposes a change, a verifier hunts for the failure mode, and a harness turns the finding into a repeatable check — using reusable validation contracts and skills, independent verifier passes and explicit human gates throughout production migrations. People stay in charge of what ships.</p>
-      <ol className="method-steps" aria-label="Agent, verifier and harness loop">
-        {steps.map(([role, action, arrow, result]) => (
-          <li key={role}><strong>{role}</strong><span>{action}</span><span className="method-result"><span aria-hidden="true">{arrow}</span> {result}</span></li>
-        ))}
-      </ol>
+      <SectionHead label="Method" title="How I work" />
+      <p className="method-copy">Agents do more of the work, and I build the checks that catch their mistakes.</p>
       <p className="method-links"><a href="/notes/agent-harness-at-eachlabs/">The harness presentation</a><span aria-hidden="true"> · </span><a href="https://github.com/kevinmamaqi/agent-first-workbench" target="_blank" rel="noreferrer">The workbench setup <Arrow /></a></p>
     </section>
   );
@@ -147,38 +148,34 @@ function NoteItem({ note }: { note: Note }) {
   );
 }
 
+const byDate = (a: { date: string }, b: { date: string }) => b.date.localeCompare(a.date);
+
 function Writing() {
+  const technical = NOTES.filter((note) => note.category === "technical").sort(byDate);
+  const offTopic = NOTES.filter((note) => note.category === "off-topic").sort(byDate);
   return (
     <section id="notes" className="section">
       <SectionHead label="Writing" title="Writing" />
-      {([['technical', 'Technical'], ['off-topic', 'Off-topic']] as const).map(([category, label]) => (
-        <div className="writing-group" key={category}>
-          <h3 className="writing-label">{label}</h3>
-          <div className="note-list">{NOTES.filter((note) => note.category === category).sort((a, b) => b.date.localeCompare(a.date)).map((note) => <NoteItem key={note.href} note={note} />)}</div>
+      <div className="note-list">{technical.slice(0, 3).map((note) => <NoteItem key={note.href} note={note} />)}</div>
+      <Disclosure id="more" label="More writing, talks and skills">
+        <div className="note-list">{technical.slice(3).map((note) => <NoteItem key={note.href} note={note} />)}</div>
+        <div className="writing-group">
+          <h3 className="writing-label">Off-topic</h3>
+          <div className="note-list">{offTopic.map((note) => <NoteItem key={note.href} note={note} />)}</div>
         </div>
-      ))}
-    </section>
-  );
-}
-
-function Skills() {
-  return (
-    <section id="skills" className="section">
-      <SectionHead label="Skills" title="What I work with" />
-      <div className="skill-list">{SKILLS.map((group) => <div className="skill-row" key={group.area}><h3>{group.area}</h3><ul className="skill-tags">{group.items.map((item) => <li key={item}>{item}</li>)}</ul></div>)}</div>
-    </section>
-  );
-}
-
-function Speaking() {
-  return (
-    <section id="speaking" className="section">
-      <SectionHead label="Speaking & research" title="Talks and papers" />
-      <div className="note-list">
-        <a className="note-item" href="/notes/ace-technical-interview-mwc-2024/"><span>MWC Barcelona 2024 · Talent Arena</span><strong>Ace the Technical Interview with AI</strong><p>A practical workshop on using AI to prepare for technical interviews.</p><Arrow /></a>
-        <a className="note-item" href={RETINAL_PAPER.url}><span>Paper · {RETINAL_PAPER.journal}, {RETINAL_PAPER.year}</span><strong>{RETINAL_PAPER.title}</strong><p>A Bi-LSTM approach to segmenting blood vessels in retinal images.</p><Arrow /></a>
-        <div className="note-item note-item--plain"><span>Research · Manuscripts, 2026</span><strong>Retinal vessel segmentation</strong><p>Evaluation-policy stability; active domain adaptation.</p></div>
-      </div>
+        <div id="speaking" className="writing-group">
+          <h3 className="writing-label">Talks and papers</h3>
+          <div className="note-list">
+            <a className="note-item" href="/notes/ace-technical-interview-mwc-2024/"><span>MWC Barcelona 2024 · Talent Arena</span><strong>Ace the Technical Interview with AI</strong><p>A practical workshop on using AI to prepare for technical interviews.</p><Arrow /></a>
+            <a className="note-item" href={RETINAL_PAPER.url}><span>Paper · {RETINAL_PAPER.journal}, {RETINAL_PAPER.year}</span><strong>{RETINAL_PAPER.title}</strong><p>A Bi-LSTM approach to segmenting blood vessels in retinal images.</p><Arrow /></a>
+            <div className="note-item note-item--plain"><span>Research · Manuscripts, 2026</span><strong>Retinal vessel segmentation</strong><p>Evaluation-policy stability; active domain adaptation.</p></div>
+          </div>
+        </div>
+        <div id="skills" className="writing-group">
+          <h3 className="writing-label">Skills</h3>
+          <div className="skill-list">{SKILLS.map((group) => <div className="skill-row" key={group.area}><h3>{group.area}</h3><ul className="skill-tags">{group.items.map((item) => <li key={item}>{item}</li>)}</ul></div>)}</div>
+        </div>
+      </Disclosure>
     </section>
   );
 }
@@ -186,7 +183,7 @@ function Speaking() {
 function Contact() {
   return (
     <section id="contact" className="section contact">
-      <div><p className="eyebrow">Contact</p><h2>Best place to reach me is LinkedIn.</h2><p className="contact-copy">Short context, practical questions, and real work are welcome. Happy to talk about hands-on tech lead roles at companies building runtimes, state and tooling for AI agents.</p><p className="contact-location">Barcelona · Europe/Madrid · Remote-friendly · US-overlap</p></div>
+      <div><p className="eyebrow">Contact</p><h2>Hiring a hands-on tech lead or engineering manager?</h2><p className="contact-copy">Message me on LinkedIn.</p><p className="contact-location">Barcelona · Europe/Madrid · Remote-friendly · US-overlap</p></div>
       <div className="contact-actions"><a className="button" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a><a className="button" href={LINKS.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a></div>
     </section>
   );
@@ -197,5 +194,5 @@ function Footer() {
 }
 
 export default function Page(): JSX.Element {
-  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="page"><Header /><main id="main-content" tabIndex={-1}><Hero /><Work /><Method /><Writing /><Skills /><Speaking /><Contact /></main><Footer /></div></>;
+  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="page"><Header /><main id="main-content" tabIndex={-1}><Hero /><Work /><Method /><Writing /><Contact /></main><Footer /></div></>;
 }

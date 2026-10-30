@@ -1,6 +1,11 @@
-// Public copy supplied in Kevin's 15 October 2026 implementation brief.
+// Work lines, method and contact copy follow Kevin's 30 October 2026
+// simplification brief, which supersedes the 15 October brief: plain first
+// person, no jargon above the fold, at most two public numbers. Kevin then
+// asked for a hero that opens with his role and introduces him in his own
+// voice, tied to the harness and inference themes in his SF Tech Week note.
 // The earlier Eachlabs dates and contract framing were confirmed in chat.
-// Public scale uses Kevin's approved monthly execution and catalog figures.
+// Public scale uses Kevin's approved monthly execution and catalog figures
+// (catalog updated to 800+ models on 30 October 2026).
 // Keep internal migration and test measurements qualitative.
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/kevinmamaqi",
@@ -13,14 +18,13 @@ export const NAV = [
   { label: "Work", href: "#work" },
   { label: "Method", href: "#method" },
   { label: "Writing", href: "#notes" },
-  { label: "Skills", href: "#skills" },
   { label: "CV", href: LINKS.cv },
   { label: "Contact", href: "#contact" },
 ];
 
-export const HEADLINE = "I build the infrastructure that runs AI agents reliably at scale — and lead the team that runs it.";
-export const DESCRIPTION = "Hands-on Tech Lead and Engineering Manager building execution infrastructure for AI agents: dispatch, routing, state and verification. Barcelona, remote-friendly, US-overlap.";
-export const TITLE = "Kevin Mamaqi Kapllani — Tech Lead & Engineering Manager · AI Agent Infrastructure";
+export const HEADLINE = "Hi, I’m Kevin. I make 800+ AI models behave like one product.";
+export const DESCRIPTION = "Hi, I’m Kevin. I make 800+ AI models behave like one product: engineering manager at Eachlabs, where my team builds the APIs, the MCP server and the interface for agents and humans alike.";
+export const TITLE = "Kevin Mamaqi Kapllani — Engineering Manager / Tech Lead · Barcelona";
 export const REVIEW_NOTES = [
   "paper links for the 2026 research manuscripts",
   "Local copies of the two LinkedIn articles require source Markdown; retain their existing links until supplied.",
@@ -54,9 +58,9 @@ export const PROJECTS = [
     role: EACHLABS.role,
     period: EACHLABS.dates,
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
-    summary: "Lead a team of 5 engineers building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Started part-time in March 2025 as tech lead for the new backend foundation, joined full-time in November 2025, and still ship daily.",
+    summary: "I lead a team of five and own the systems that run millions of AI jobs a month.",
     points: [
-      "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
+      "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 800+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
       "Migrated a large execution store to Aurora through a controlled production cutover, preserving data integrity while improving reliability and throughput",
       "Resilience layer — bulkheads, circuit breakers, graceful drain and automatic multi-provider fallback to recover from provider and edge failures",
@@ -70,7 +74,7 @@ export const PROJECTS = [
     tag: "Maritime software",
     role: NINETY_POE.role,
     period: NINETY_POE.dates,
-    summary: "Led a cross-functional team building onboard and shore-side services for vessel planning, itineraries, port calls and onboard workflows, used by leading maritime operators. Owned backend and frontend services end to end.",
+    summary: "I led a cross-functional team building vessel-planning software, end to end.",
     points: [
       "Team leadership across product and engineering: priorities, 1:1s, code review as teaching",
       "APIs, database migrations, performance work and CI/CD across Go and GraphQL services",
@@ -83,7 +87,7 @@ export const PROJECTS = [
     tag: "Healthcare workflows",
     role: "Front-end lead",
     period: "2021 – 2022",
-    summary: "Built healthcare interfaces for nurse-facing and operating-room workflows, where clear information, timing, and data boundaries mattered more than visual noise.",
+    summary: "I led the front-end for nurse and operating-room tools.",
     points: [
       "React and TypeScript product interfaces",
       "GraphQL and PostgreSQL-backed workflows",
