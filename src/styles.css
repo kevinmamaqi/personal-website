@@ -334,6 +334,8 @@ ul, ol {
   color: var(--accent);
 }
 
+.contact h2 { text-wrap: balance; }
+
 .contact {
   display: flex;
   justify-content: space-between;

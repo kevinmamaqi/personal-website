@@ -178,7 +178,7 @@ function Speaking() {
 function Contact() {
   return (
     <section id="contact" className="section contact">
-      <div><p className="eyebrow">Contact</p><h2>Best place to reach me is LinkedIn.</h2><p className="contact-copy">Short context, practical questions, and real work are welcome. Happy to talk about hands-on tech lead roles at companies building runtimes, state and tooling for AI agents.</p><p className="contact-location">Barcelona · Europe/Madrid · Remote-friendly · US-overlap</p></div>
+      <div><p className="eyebrow">Contact</p><h2>Hiring a hands-on tech lead or engineering manager?</h2><p className="contact-copy">Message me on LinkedIn.</p><p className="contact-location">Barcelona · Europe/Madrid · Remote-friendly · US-overlap</p></div>
       <div className="contact-actions"><a className="button" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a><a className="button" href={LINKS.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a></div>
     </section>
   );
