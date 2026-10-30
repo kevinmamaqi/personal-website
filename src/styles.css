@@ -198,29 +198,11 @@ ul, ol {
 .work-summary { max-width: 680px; margin-top: 16px; font-size: 18px; }
 .work-stack { margin-top: 18px; color: var(--muted); font-size: 13px; }
 
-.work-details { margin-top: 18px; }
-.work-details summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 650;
-  text-transform: uppercase;
-  list-style: none;
-  cursor: pointer;
-}
-.work-details summary::-webkit-details-marker { display: none; }
-.work-details summary::before { content: "+"; width: 10px; color: var(--accent); }
-.work-details[open] summary::before { content: "\2212"; }
-.work-details summary:hover { color: var(--ink); }
-
 .work-points {
   display: grid;
   align-content: start;
   gap: 10px;
   max-width: 680px;
-  margin-top: 16px;
   color: var(--ink);
   font-size: 15px;
 }
@@ -370,6 +352,7 @@ ul, ol {
 .disclosure-inner { min-height: 0; overflow: hidden; }
 .disclosure-inner > :first-child { margin-top: 18px; }
 .disclosure-inner > * + * { margin-top: 32px; }
+.work-main .disclosure-inner > * + * { margin-top: 18px; }
 
 html[data-js] .disclosure-panel {
   grid-template-rows: 0fr;
