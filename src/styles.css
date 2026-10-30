@@ -92,6 +92,16 @@ ul, ol {
   line-height: 1.55;
 }
 
+.hero-copy a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.hero-copy a:hover { text-decoration-color: currentColor; }
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
