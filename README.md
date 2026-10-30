@@ -70,6 +70,7 @@ website/
 │   ├── build.tsx        SSG entry: renders to dist/index.html
 │   ├── dev.tsx          Bun.serve() dev server
 │   ├── page.tsx         the frontpage (content + structure)
+│   ├── more.tsx         /more/: all writing, talks and papers, skills
 │   ├── cv.tsx           the print-ready CV page at /cv/
 │   ├── cv-styles.css    CV screen and print styles
 │   ├── styles.css       frontpage-only styles (base.css is inlined ahead)
