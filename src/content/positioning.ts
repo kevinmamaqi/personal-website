@@ -56,7 +56,7 @@ export const PROJECTS = [
     role: EACHLABS.role,
     period: EACHLABS.dates,
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
-    summary: "Lead a team of 5 engineers building an AI Models API and Workflows API — the execution layer under AI apps and agents. I set technical direction and personally own the execution engine, dispatch, the LLM router and the AWS platform they run on. Started part-time in March 2025 as tech lead for the new backend foundation, joined full-time in November 2025, and still ship daily.",
+    summary: "I lead a team of five and own the systems that run 10M+ AI jobs a month.",
     points: [
       "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 700+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
@@ -72,7 +72,7 @@ export const PROJECTS = [
     tag: "Maritime software",
     role: NINETY_POE.role,
     period: NINETY_POE.dates,
-    summary: "Led a cross-functional team building onboard and shore-side services for vessel planning, itineraries, port calls and onboard workflows, used by leading maritime operators. Owned backend and frontend services end to end.",
+    summary: "I led a cross-functional team building vessel-planning software, end to end.",
     points: [
       "Team leadership across product and engineering: priorities, 1:1s, code review as teaching",
       "APIs, database migrations, performance work and CI/CD across Go and GraphQL services",
@@ -85,7 +85,7 @@ export const PROJECTS = [
     tag: "Healthcare workflows",
     role: "Front-end lead",
     period: "2021 – 2022",
-    summary: "Built healthcare interfaces for nurse-facing and operating-room workflows, where clear information, timing, and data boundaries mattered more than visual noise.",
+    summary: "I led the front-end for nurse and operating-room tools.",
     points: [
       "React and TypeScript product interfaces",
       "GraphQL and PostgreSQL-backed workflows",

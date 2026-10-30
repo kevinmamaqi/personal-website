@@ -99,9 +99,12 @@ function Work() {
               <p className="work-role">{project.role} · {project.period}</p>
               {"earlier" in project ? <p className="work-earlier">{project.earlier}</p> : null}
               <p className="work-summary">{project.summary}</p>
-              {"stack" in project ? <p className="work-stack">{project.stack}</p> : null}
+              <details className="work-details">
+                <summary>Details</summary>
+                <ul className="work-points">{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                {"stack" in project ? <p className="work-stack">{project.stack}</p> : null}
+              </details>
             </div>
-            <ul className="work-points">{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
           </article>
         ))}
       </div>

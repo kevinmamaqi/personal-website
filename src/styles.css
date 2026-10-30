@@ -169,7 +169,7 @@ ul, ol {
 
 .work-item {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr) minmax(220px, 320px);
+  grid-template-columns: 160px minmax(0, 1fr);
   gap: 32px;
   padding: 28px 0;
   border-bottom: 1px solid var(--line);
@@ -195,13 +195,32 @@ ul, ol {
 
 .work-main .work-role { margin-top: 12px; font-weight: 650; }
 .work-earlier { margin-top: 8px; color: var(--muted); font-size: 13px; }
-.work-summary { margin-top: 16px; color: var(--muted); }
+.work-summary { max-width: 680px; margin-top: 16px; font-size: 18px; }
 .work-stack { margin-top: 18px; color: var(--muted); font-size: 13px; }
+
+.work-details { margin-top: 18px; }
+.work-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+}
+.work-details summary::-webkit-details-marker { display: none; }
+.work-details summary::before { content: "+"; width: 10px; color: var(--accent); }
+.work-details[open] summary::before { content: "\2212"; }
+.work-details summary:hover { color: var(--ink); }
 
 .work-points {
   display: grid;
   align-content: start;
   gap: 10px;
+  max-width: 680px;
+  margin-top: 16px;
   color: var(--ink);
   font-size: 15px;
 }
