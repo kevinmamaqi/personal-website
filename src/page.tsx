@@ -113,20 +113,10 @@ function Work() {
 }
 
 function Method() {
-  const steps = [
-    ["AGENT", "proposes the change", "→", "change"],
-    ["VERIFIER", "hunts the failure mode", "→", "finding"],
-    ["HARNESS", "encodes it as a check", "↺", "a repeatable check"],
-  ];
   return (
     <section id="method" className="section">
-      <SectionHead label="Method" title="How I work with AI" />
-      <p className="method-copy">The same loop runs the platform and the team. In the platform: an executor dispatches a step, a verifier checks the outcome (exactly-once, idempotent retry, fallback), and the result is committed before anything is billed. In the team: an agent proposes a change, a verifier hunts for the failure mode, and a harness turns the finding into a repeatable check — using reusable validation contracts and skills, independent verifier passes and explicit human gates throughout production migrations. People stay in charge of what ships.</p>
-      <ol className="method-steps" aria-label="Agent, verifier and harness loop">
-        {steps.map(([role, action, arrow, result]) => (
-          <li key={role}><strong>{role}</strong><span>{action}</span><span className="method-result"><span aria-hidden="true">{arrow}</span> {result}</span></li>
-        ))}
-      </ol>
+      <SectionHead label="Method" title="How I work" />
+      <p className="method-copy">Agents do more of the work, and I build the checks that catch their mistakes.</p>
       <p className="method-links"><a href="/notes/agent-harness-at-eachlabs/">The harness presentation</a><span aria-hidden="true"> · </span><a href="https://github.com/kevinmamaqi/agent-first-workbench" target="_blank" rel="noreferrer">The workbench setup <Arrow /></a></p>
     </section>
   );

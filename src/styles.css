@@ -320,12 +320,7 @@ ul, ol {
   font-size: 14px;
 }
 
-.method-copy { max-width: 760px; margin-bottom: 28px; color: var(--muted); }
-.method-steps { max-width: 920px; border: 1px solid var(--line); }
-.method-steps li { display: grid; grid-template-columns: 100px minmax(0, 1fr) minmax(160px, 1fr); gap: 22px; padding: 22px; font-family: var(--mono); font-size: 14px; }
-.method-steps li + li { border-top: 1px solid var(--line); }
-.method-steps strong { color: var(--accent); font-size: 13px; }
-.method-result { color: var(--muted); }
+.method-copy { max-width: 760px; font-size: 18px; }
 .method-links { margin-top: 18px; font-size: 14px; }
 .method-links a { text-decoration: underline; text-underline-offset: 4px; }
 .method-links svg, .note-syndication svg { display: inline-block; vertical-align: middle; width: 14px; height: 14px; }
@@ -378,8 +373,6 @@ ul, ol {
   .hero { grid-template-columns: minmax(0, 1fr); padding: 60px 0; }
   .hero-intro { grid-area: auto; }
   .hero-photo { grid-area: auto; width: 200px; margin-top: 0; }
-  .method-steps li { grid-template-columns: 80px minmax(0, 1fr); gap: 10px 16px; padding: 18px; }
-  .method-result { grid-column: 2; }
   .note-syndication { margin-left: 0; }
 
   .hero h1 {
