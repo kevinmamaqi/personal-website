@@ -321,8 +321,10 @@ ul, ol {
 }
 
 .method-copy { max-width: 760px; font-size: 18px; }
-.method-links { margin-top: 18px; font-size: 14px; }
-.method-links a { text-decoration: underline; text-underline-offset: 4px; }
+.method-links, .section-more { margin-top: 18px; font-size: 14px; }
+.method-links a, .section-more a { text-decoration: underline; text-underline-offset: 4px; }
+.more-intro { padding: 72px 0 56px; }
+.more-intro h1 { margin-top: 18px; font-size: 56px; line-height: 1.02; }
 .method-links svg, .note-syndication svg { display: inline-block; vertical-align: middle; width: 14px; height: 14px; }
 .writing-label { margin-bottom: 18px; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 650; text-transform: uppercase; }
 .writing-group + .writing-group { margin-top: 32px; }
@@ -377,9 +379,12 @@ ul, ol {
   .hero-photo { grid-area: auto; width: 200px; margin-top: 0; }
   .note-syndication { margin-left: 0; }
 
-  .hero h1 {
+  .hero h1,
+  .more-intro h1 {
     font-size: 46px;
   }
+
+  .more-intro { padding: 60px 0 42px; }
 
   .hero-copy {
     font-size: 17px;

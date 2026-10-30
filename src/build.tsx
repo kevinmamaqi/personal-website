@@ -5,8 +5,9 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import Page from "./page.tsx";
 import CvPage from "./cv.tsx";
+import MorePage from "./more.tsx";
 import { html } from "./template.ts";
-import { TITLE, DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
+import { TITLE, DESCRIPTION, MORE_TITLE, MORE_DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -98,6 +99,17 @@ async function main() {
     url: `${SITE_URL}cv/`,
   });
   await writeFile(resolve(cvDir, "index.html"), cvDoc, "utf8");
+
+  const moreDir = resolve(dist, "more");
+  await mkdir(moreDir, { recursive: true });
+  const moreDoc = html({
+    title: MORE_TITLE,
+    description: MORE_DESCRIPTION,
+    body: renderToStaticMarkup(<MorePage />),
+    css,
+    url: `${SITE_URL}more/`,
+  });
+  await writeFile(resolve(moreDir, "index.html"), moreDoc, "utf8");
 
   await copyPublic();
   const t = (performance.now() - t0).toFixed(1);

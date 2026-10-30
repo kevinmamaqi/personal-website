@@ -4,7 +4,7 @@ import { resolve, dirname, extname } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { fileURLToPath } from "node:url";
 import { html } from "./template.ts";
-import { TITLE, DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
+import { TITLE, DESCRIPTION, MORE_TITLE, MORE_DESCRIPTION, REVIEW_NOTES } from "./content/positioning.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
@@ -37,6 +37,15 @@ async function renderPage(): Promise<string> {
   return html({ title: TITLE, description: DESCRIPTION, body, css: `${base}\n${page}`, reviewNotes: REVIEW_NOTES });
 }
 
+async function renderMorePage(): Promise<string> {
+  const pageMod = await import(`./more.tsx?t=${Date.now()}`);
+  const MorePage = pageMod.default;
+  const base = await readFile(resolve(pub, "styles/base.css"), "utf8");
+  const page = await readFile(resolve(here, "styles.css"), "utf8");
+  const body = renderToStaticMarkup(<MorePage />);
+  return html({ title: MORE_TITLE, description: MORE_DESCRIPTION, body, css: `${base}\n${page}`, url: "https://kevinmamaqi.com/more/" });
+}
+
 async function renderCvPage(): Promise<string> {
   const pageMod = await import(`./cv.tsx?t=${Date.now()}`);
   const CvPage = pageMod.default;
@@ -64,6 +73,16 @@ const server = Bun.serve({
     if (pathname === "/" || pathname === "/index.html") {
       try {
         const body = await renderPage();
+        return new Response(body, { headers: { "content-type": MIME[".html"] } });
+      } catch (e) {
+        console.error(e);
+        return new Response(String(e), { status: 500 });
+      }
+    }
+
+    if (pathname === "/more" || pathname === "/more/" || pathname === "/more/index.html") {
+      try {
+        const body = await renderMorePage();
         return new Response(body, { headers: { "content-type": MIME[".html"] } });
       } catch (e) {
         console.error(e);

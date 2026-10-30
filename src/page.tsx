@@ -1,41 +1,9 @@
 import type { JSX } from "react";
 import { ThemeToggle } from "./theme-toggle.tsx";
-import { HEADLINE, LINKS, NAV, PROJECTS, RETINAL_PAPER } from "./content/positioning.ts";
+import { HEADLINE, LINKS, NAV, PROJECTS } from "./content/positioning.ts";
 import NOTES from "./content/writing.json";
 
-const SKILLS = [
-  {
-    area: "Languages & APIs",
-    items: ["TypeScript", "Node.js", "Golang", "Python", "React", "GraphQL", "gRPC", "REST"],
-  },
-  {
-    area: "Cloud & data",
-    items: ["AWS", "GCP", "PostgreSQL", "DynamoDB & NoSQL", "CI/CD pipelines", "Observability"],
-  },
-  {
-    area: "Systems & AI",
-    items: [
-      "AI infrastructure & orchestration",
-      "Model routing across providers",
-      "Distributed systems",
-      "Event-driven architecture",
-      "DDD & hexagonal architecture",
-      "Reliability & idempotency",
-    ],
-  },
-  {
-    area: "Leadership",
-    items: [
-      "Engineering management",
-      "Team leadership & delivery",
-      "Mentoring & technical teaching",
-      "Product & stakeholder collaboration",
-      "Architecture decisions & technical writing",
-    ],
-  },
-];
-
-const Arrow = () => (
+export const Arrow = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M7 17 17 7M7 7h10v10" />
   </svg>
@@ -45,16 +13,18 @@ function Motif() {
   return <div className="section-motif" aria-hidden="true"><span /><span /><span /></div>;
 }
 
-function SectionHead({ label, title }: { label: string; title: string }) {
+export function SectionHead({ label, title }: { label: string; title: string }) {
   return <><div className="section-head"><p className="eyebrow">{label}</p><h2>{title}</h2></div><Motif /></>;
 }
 
-function Header() {
+// Other pages pass their own path: section links then point back to the homepage.
+export function Header({ current }: { current?: string }) {
+  const nav = current ? NAV.map((item) => ({ ...item, href: item.href.startsWith("#") ? `/${item.href}` : item.href })) : NAV;
   return (
     <header className="site-header">
-      <a className="site-name" href="#top" aria-label="Kevin Mamaqi home">Kevin Mamaqi</a>
+      <a className="site-name" href={current ? "/" : "#top"} aria-label="Kevin Mamaqi home">Kevin Mamaqi</a>
       <nav id="site-navigation" className="nav" aria-label="Primary">
-        {NAV.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}
+        {nav.map((item) => <a key={item.label} href={item.href} aria-current={item.href === current ? "page" : undefined}>{item.label}</a>)}
       </nav>
       <div className="site-header-actions">
         <ThemeToggle />
@@ -122,10 +92,10 @@ function Method() {
   );
 }
 
-type Note = (typeof NOTES)[number] & { linkedin?: string };
+export type Note = (typeof NOTES)[number] & { linkedin?: string };
 const dateLabel = (date: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
 
-function NoteItem({ note }: { note: Note }) {
+export function NoteItem({ note }: { note: Note }) {
   return (
     <article className="writing-entry">
       <a className="note-item" href={note.href} target={note.external ? "_blank" : undefined} rel={note.external ? "noreferrer" : undefined}>
@@ -139,38 +109,15 @@ function NoteItem({ note }: { note: Note }) {
   );
 }
 
+export const byDate = (a: { date: string }, b: { date: string }) => b.date.localeCompare(a.date);
+
 function Writing() {
+  const latest = NOTES.filter((note) => note.category === "technical").sort(byDate).slice(0, 3);
   return (
     <section id="notes" className="section">
       <SectionHead label="Writing" title="Writing" />
-      {([['technical', 'Technical'], ['off-topic', 'Off-topic']] as const).map(([category, label]) => (
-        <div className="writing-group" key={category}>
-          <h3 className="writing-label">{label}</h3>
-          <div className="note-list">{NOTES.filter((note) => note.category === category).sort((a, b) => b.date.localeCompare(a.date)).map((note) => <NoteItem key={note.href} note={note} />)}</div>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-function Skills() {
-  return (
-    <section id="skills" className="section">
-      <SectionHead label="Skills" title="What I work with" />
-      <div className="skill-list">{SKILLS.map((group) => <div className="skill-row" key={group.area}><h3>{group.area}</h3><ul className="skill-tags">{group.items.map((item) => <li key={item}>{item}</li>)}</ul></div>)}</div>
-    </section>
-  );
-}
-
-function Speaking() {
-  return (
-    <section id="speaking" className="section">
-      <SectionHead label="Speaking & research" title="Talks and papers" />
-      <div className="note-list">
-        <a className="note-item" href="/notes/ace-technical-interview-mwc-2024/"><span>MWC Barcelona 2024 · Talent Arena</span><strong>Ace the Technical Interview with AI</strong><p>A practical workshop on using AI to prepare for technical interviews.</p><Arrow /></a>
-        <a className="note-item" href={RETINAL_PAPER.url}><span>Paper · {RETINAL_PAPER.journal}, {RETINAL_PAPER.year}</span><strong>{RETINAL_PAPER.title}</strong><p>A Bi-LSTM approach to segmenting blood vessels in retinal images.</p><Arrow /></a>
-        <div className="note-item note-item--plain"><span>Research · Manuscripts, 2026</span><strong>Retinal vessel segmentation</strong><p>Evaluation-policy stability; active domain adaptation.</p></div>
-      </div>
+      <div className="note-list">{latest.map((note) => <NoteItem key={note.href} note={note} />)}</div>
+      <p className="section-more"><a href={LINKS.more}>More writing, talks and skills</a></p>
     </section>
   );
 }
@@ -184,10 +131,10 @@ function Contact() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return <footer className="footer"><p>Kevin Mamaqi Kapllani · Barcelona</p><a href={LINKS.malt} target="_blank" rel="noreferrer">Freelance reviews on Malt</a></footer>;
 }
 
 export default function Page(): JSX.Element {
-  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="page"><Header /><main id="main-content" tabIndex={-1}><Hero /><Work /><Method /><Writing /><Skills /><Speaking /><Contact /></main><Footer /></div></>;
+  return <><a className="skip-link" href="#main-content">Skip to content</a><div className="page"><Header /><main id="main-content" tabIndex={-1}><Hero /><Work /><Method /><Writing /><Contact /></main><Footer /></div></>;
 }
