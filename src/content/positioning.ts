@@ -58,7 +58,7 @@ export const PROJECTS = [
     role: EACHLABS.role,
     period: EACHLABS.dates,
     earlier: `${EACHLABS.earlierRole} · ${EACHLABS.earlierDates} — ${EACHLABS.earlierSummary}`,
-    summary: "I lead a team of five and own the systems that run 10M+ AI jobs a month.",
+    summary: "I lead a team of five and own the systems that run millions of AI jobs a month.",
     points: [
       "Execution & Routing Engines, handling dozens of millions of executions/month, with peaks of thousands per minute, across 800+ models and dozens of providers",
       "Exactly-once dispatch through a versioned gRPC handshake and idempotent request handling, verified with concurrent calls and failure-injection tests",
