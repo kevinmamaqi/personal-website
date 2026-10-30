@@ -179,7 +179,7 @@ blockquote footer {
 }
 
 .gallery a { display: block; cursor: zoom-in; }
-.gallery img { width: 100%; background: #e9e2d7; }
+.gallery img { width: 100%; background: var(--surface); }
 .gallery a:hover img { filter: contrast(1.03) brightness(1.02); }
 
 .gallery figcaption {
@@ -206,7 +206,7 @@ blockquote footer {
   right: 0;
   bottom: 0;
   padding: 14px 20px 18px;
-  color: var(--line);
+  color: #fff;
   font-family: var(--sans);
   font-size: 13px;
   line-height: 1.5;

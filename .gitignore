@@ -17,3 +17,9 @@ STYLEGUIDE.md
 LEGACY_WEBSITES.md
 README.content-workspace.md
 GITHUB_CLEANUP_REVIEW.md
+
+# Password-protected gift: assets and canonical source stay out of the public repository
+/public/labs/flowerring/
+/private/flowerring/
+.dev.vars
+.dev.vars.*

@@ -18,3 +18,16 @@
 
 /favicon.svg
   Cache-Control: public, max-age=31536000, immutable
+
+/labs/flower-lampshades/renderer/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/labs/flower-lampshades/gen-v2/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/labs/flower-lampshades/gen-v2/out/preview-cache/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/labs/flowerring/*
+  Cache-Control: private, no-store
+  X-Robots-Tag: noindex, nofollow, noarchive

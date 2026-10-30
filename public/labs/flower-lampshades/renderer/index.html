@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flower lampshade renderer · Kevin Mamaqi</title>
+    <meta name="description" content="Grow, validate and export five printable elastic-shell lampshades in the browser." />
+    <link rel="canonical" href="https://kevinmamaqi.com/labs/flower-lampshades/renderer/" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css?v=20260825-3" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="stage">
+      <div id="loading" role="status" aria-live="polite">
+        <span class="loading-mark" aria-hidden="true"></span>
+        <strong>Growing Datura</strong>
+        <small>Building and validating the full-density shell…</small>
+      </div>
+    </main>
+
+    <aside id="panel">
+      <header>
+        <h1>Flower lampshade renderer</h1>
+        <p class="sub">Grow, validate and export five printable elastic shells.</p>
+      </header>
+
+      <section>
+        <div id="catalogue" class="chips"></div>
+        <p id="note" class="note"></p>
+      </section>
+
+      <section>
+        <h2>Shape</h2>
+        <div id="controls"></div>
+        <details>
+          <summary>Detail</summary>
+          <div id="controls-more"></div>
+        </details>
+      </section>
+
+      <section class="row">
+        <label class="toggle"><input type="checkbox" id="lit" checked /> Lamp on</label>
+        <label class="toggle"><input type="checkbox" id="hardware" checked /> Hardware</label>
+        <button id="top-view" class="chip" type="button" aria-pressed="false" title="Toggle top view">Top</button>
+      </section>
+
+      <section>
+        <h2>Print check</h2>
+        <pre id="report">measuring...</pre>
+      </section>
+
+      <section class="actions">
+        <button id="download-shade">Download shade STL</button>
+        <button id="download-hardware" class="secondary">Download hardware STLs</button>
+        <a class="button-link secondary" href="../downloads/flower-lampshades-print-pack.zip" download>Download validated print pack</a>
+        <button id="reset" class="secondary">Reset</button>
+      </section>
+
+      <footer>
+        <p>
+          Millimetres, Z up, as printed. Two-wall shell with variable-width walls, not vase mode.
+          Defaults load from prepared meshes; move a slider to watch the elastic sheet grow live.
+          STL export is enabled only after the mesh passes the print checks. Print the coupon first.
+          <a href="/notes/flower-lampshades/">Read the engineering note</a>.
+        </p>
+      </footer>
+    </aside>
+
+    <script id="runtime-config" type="application/json">
+      {"cacheBase":"../gen-v2/out/preview-cache/","stlBase":"../downloads/stl/"}
+    </script>
+    <script type="module" src="src-v2/main.js"></script>
+  </body>
+</html>

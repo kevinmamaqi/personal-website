@@ -10,9 +10,50 @@
   --line: #D8D0C2;
   --accent: #23395B;
   --warm: #8F5B3E;
+  --surface: #EDE6DA;
+  --surface-raised: #FFF9F0;
+  --overlay: rgba(247, 243, 236, 0.94);
+  --shadow: rgba(45, 35, 25, 0.14);
+  --track: #E8E1D6;
   --display: "EB Garamond", Georgia, serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --max: 1120px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #17191B;
+  --ink: #F3EEE5;
+  --muted: #C9C1B5;
+  --soft: #A79D91;
+  --line: #3E3B36;
+  --accent: #A9C7EE;
+  --warm: #D7A17C;
+  --surface: #23201D;
+  --surface-raised: #292521;
+  --overlay: rgba(23, 25, 27, 0.94);
+  --shadow: rgba(0, 0, 0, 0.34);
+  --track: #37332E;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --paper: #17191B;
+    --ink: #F3EEE5;
+    --muted: #C9C1B5;
+    --soft: #A79D91;
+    --line: #3E3B36;
+    --accent: #A9C7EE;
+    --warm: #D7A17C;
+    --surface: #23201D;
+    --surface-raised: #292521;
+    --overlay: rgba(23, 25, 27, 0.94);
+    --shadow: rgba(0, 0, 0, 0.34);
+    --track: #37332E;
+    color-scheme: dark;
+  }
 }
 
 *, *::before, *::after {
@@ -133,6 +174,82 @@ h1, h2 {
   font-size: 14px;
 }
 
+.site-header-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle svg,
+.menu-toggle svg {
+  width: 15px;
+  height: 15px;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-glyph {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.theme-glyph--sun {
+  opacity: 0;
+  transform: rotate(-35deg) scale(0.55);
+}
+
+.theme-glyph--moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+:root[data-theme="dark"] .theme-glyph--sun {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+:root[data-theme="dark"] .theme-glyph--moon {
+  opacity: 0;
+  transform: rotate(35deg) scale(0.55);
+}
+
+.menu-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+
 .eyebrow {
   color: var(--muted);
   font-family: var(--sans);
@@ -166,12 +283,36 @@ h1, h2 {
   }
 
   .site-header {
-    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+
+  .site-header-actions {
+    margin-left: auto;
+  }
+
+  html[data-js] .menu-toggle {
+    display: inline-grid;
   }
 
   .nav {
-    gap: 16px;
+    flex-basis: 100%;
+    order: 3;
+    justify-content: stretch;
+    gap: 0;
+    border-top: 1px solid var(--line);
     font-size: 13px;
+  }
+
+  .nav a {
+    width: 100%;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  html[data-js] .site-header:not([data-menu-open="true"]) .nav {
+    display: none;
   }
 
   .section {
@@ -184,8 +325,43 @@ h1, h2 {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-glyph--sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  :root:not([data-theme]) .theme-glyph--moon {
+    opacity: 0;
+    transform: rotate(35deg) scale(0.55);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .theme-glyph {
+    transition: none;
+  }
+}
+
+@media print {
+  :root,
+  :root[data-theme] {
+    --paper: #FFFFFF;
+    --ink: #171717;
+    --muted: #5F5B54;
+    --soft: #8B857A;
+    --line: #D8D0C2;
+    --accent: #23395B;
+    --warm: #8F5B3E;
+    --surface: #EDE6DA;
+    --surface-raised: #FFF9F0;
+    --overlay: rgba(247, 243, 236, 0.94);
+    --shadow: rgba(45, 35, 25, 0.14);
+    --track: #E8E1D6;
+    color-scheme: light;
   }
 }
